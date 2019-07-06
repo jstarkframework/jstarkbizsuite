@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="euc-kr"?>
+<querylist>
+
+<query name="첨부파일목록" id="attachment_list">
+<![CDATA[
+    select
+    fid,file_name,file_save,file_path,file_ext,file_size,date_format(a_date,'%Y-%m-%d %T') a_date
+    from
+    sample_file
+<if:excel>
+    where
+    file_ext in ('xls','xlsx')
+</if:excel>
+<if:image>
+    where
+    file_ext in ('jpg','gif','png','zip')
+</if:image>
+    order by a_date desc
+]]>
+</query>
+
+<query name="첨부파일조회" id="attachment_info">
+<![CDATA[
+    select
+    fid,file_name,file_save,file_path,file_ext,file_size,date_format(a_date,'%Y-%m-%d %T') a_date
+    from
+    sample_file
+    where
+    fid=:fid
+]]>
+</query>
+
+</querylist>

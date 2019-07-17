@@ -12,6 +12,11 @@
         <url-pattern>*.do</url-pattern>
     </servlet-mapping>
 
+    <servlet-mapping>
+        <servlet-name>JStarkServlet</servlet-name>
+        <url-pattern>/health</url-pattern>
+    </servlet-mapping>
+    
     <!--
     <servlet-mapping>
         <servlet-name>JStarkServlet</servlet-name>
@@ -45,10 +50,13 @@
         <listener-class>org.jstark.framework.watch.JStarkContextListener</listener-class>
     </listener>
 
+<!-- 
     <session-config>
         <session-timeout>60</session-timeout>
+        <tracking-mode>COOKIE</tracking-mode>
     </session-config>
-
+ -->
+ 
     <error-page>
         <error-code>400</error-code>
         <location>/WEB-INF/jsp/jstark/error/error_400.jsp</location>

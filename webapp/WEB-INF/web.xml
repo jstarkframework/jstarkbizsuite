@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee"
-	xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
-	version="2.5">
+<web-app>
 
     <servlet>
         <servlet-name>JStarkServlet</servlet-name>
@@ -14,6 +12,11 @@
         <url-pattern>*.do</url-pattern>
     </servlet-mapping>
 
+    <servlet-mapping>
+        <servlet-name>JStarkServlet</servlet-name>
+        <url-pattern>/health</url-pattern>
+    </servlet-mapping>
+    
     <!--
     <servlet-mapping>
         <servlet-name>JStarkServlet</servlet-name>
@@ -47,10 +50,13 @@
         <listener-class>org.jstark.framework.watch.JStarkContextListener</listener-class>
     </listener>
 
+<!-- 
     <session-config>
-        <session-timeout>60</session-timeout>        
+        <session-timeout>60</session-timeout>
+        <tracking-mode>COOKIE</tracking-mode>
     </session-config>
-
+ -->
+ 
     <error-page>
         <error-code>400</error-code>
         <location>/WEB-INF/jsp/jstark/error/error_400.jsp</location>

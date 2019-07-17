@@ -26,3 +26,9 @@ jstark.mail.properties의 smtp_host 값을 대체한다.<br />
 jstarkbizsuite\webapp\WEB-INF\config\sun\jstark_key.jsk<br />
 <br />
 <br />
+<br />
+health 체크
+ - URL : /health
+ - src/main/java/jstark/platform/HealthAction.java
+ <br />
+ <br />

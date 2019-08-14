@@ -6,19 +6,11 @@ import java.io.OutputStream;
 
 import javax.imageio.ImageIO;
 
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
-import org.apache.http.util.EntityUtils;
 import org.jstark.framework.core.CoreUtils;
 import org.jstark.framework.core.JConfigEx;
 import org.jstark.framework.core.hs.Txt;
 import org.jstark.framework.web.annotation.Control;
 import org.jstark.framework.web.annotation.Link;
-
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 
 import jstark.platform.PlatformChannel;
 
@@ -148,51 +140,4 @@ public class CommonAction extends PlatformChannel
         }
     }
 
-    public JsonObject getHttpClient(String get_url, String token) throws Exception
-    {
-        CloseableHttpClient httpClient = null;
-        String USER_AGENT = "Mozila/5.0";
-        JsonObject jobj = new JsonObject();
-        try
-        {
-            httpClient = HttpClients.createDefault();
-
-            HttpGet httpGet = new HttpGet(get_url);
-
-            httpGet.addHeader("User-Agent", USER_AGENT);
-            httpGet.addHeader("Content-type", "application/json");
-            httpGet.addHeader("Accept", "application/json");
-            if(token!=null && !"".equals(token))
-            {
-                httpGet.addHeader("Authorization", "Bearer "+token);
-            }
-
-            CloseableHttpResponse httpResponse = httpClient.execute(httpGet);
-
-            int status_code = httpResponse.getStatusLine().getStatusCode();
-
-            if(200 == status_code)
-            {
-                String json = EntityUtils.toString(httpResponse.getEntity(), "UTF-8");
-
-                //System.out.println(json);
-
-                jobj = new Gson().fromJson(json, JsonObject.class);
-            }
-
-            httpClient.close();
-        }
-        catch(Exception e)
-        {
-            throw e;
-        }
-        finally
-        {
-            if(httpClient != null)
-            {
-                httpClient.close();
-            }
-        }
-        return jobj;
-    }
 }

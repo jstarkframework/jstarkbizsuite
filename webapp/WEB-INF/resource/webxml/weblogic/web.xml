@@ -10,11 +10,8 @@
     <servlet-mapping>
         <servlet-name>JStarkServlet</servlet-name>
         <url-pattern>*.do</url-pattern>
-    </servlet-mapping>
-
-    <servlet-mapping>
-        <servlet-name>JStarkServlet</servlet-name>
         <url-pattern>/health</url-pattern>
+        <url-pattern>/api/*</url-pattern>
     </servlet-mapping>
     
     <!--

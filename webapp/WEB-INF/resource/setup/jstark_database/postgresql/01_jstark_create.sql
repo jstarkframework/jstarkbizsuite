@@ -230,7 +230,7 @@ create table jstark_control_log
   c_no             varchar(30),
   c_flag           varchar(1),
   result_login     varchar(1),
-  result_post      varchar(1),
+  result_method      varchar(1),
   result_inside    varchar(1),
   result_unique    varchar(1),
   result_auth      varchar(1),

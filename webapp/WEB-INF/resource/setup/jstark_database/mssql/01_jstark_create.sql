@@ -229,7 +229,7 @@ create table jstark_control_log
   c_no             nvarchar(30),
   c_flag           nvarchar(1),
   result_login     nvarchar(1),
-  result_post      nvarchar(1),
+  result_method      nvarchar(1),
   result_inside    nvarchar(1),
   result_unique    nvarchar(1),
   result_auth      nvarchar(1),

@@ -1,6 +1,7 @@
 <%@ page language = "java" contentType = "text/html; charset=UTF-8" pageEncoding = "UTF-8" %>
 <%@ include file = "/WEB-INF/jsp/jstark/platform/include/page.jsp" %>
 <jsp:useBean id="list" class="org.jstark.framework.core.DList" scope="request" />
+<jsp:useBean id="open_year_list" class="org.jstark.framework.core.DList" scope="request" />
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -37,6 +38,29 @@
     <tr>
     <th width="100">Movie Title</th>
     <td><input type="text" name="search_title" id="search_title" value="<%=ro.getString("search_title")%>" style="width:100%" /></td>
+    </tr>
+    <tr>
+    <th width="100">Open Year</th>
+    <td>
+    
+    <%
+    while(open_year_list.next())
+    {
+        %>
+        <input type="checkbox" name="open_year" id="open_year_<%=open_year_list.i%>" value="<%=open_year_list.getString("open_year")%>" class="jskui_style_checkbox" <%
+        
+        if(ro.isArrayIn("open_year", open_year_list.getString("open_year")))
+        {
+            %>checked="checked"<%
+        }
+        
+        %> />
+        <label for="open_year_<%=open_year_list.i%>" class="jskui_style_checkbox_label"><%=open_year_list.getString("open_year")%></label>&nbsp;&nbsp;&nbsp;
+        <%
+    }
+    %>
+    
+    </td>
     </tr>
     </table>
 

@@ -73,7 +73,7 @@ public class ControlUtils
 
                         CoreUtils.toPrint(ro, txt);
                     }
-                    else if("POST".equals(checkresult))//PostMethod
+                    else if("METHOD".equals(checkresult))//Method
                     {
                         if(ro.isOpendata())
                         {
@@ -243,13 +243,39 @@ public class ControlUtils
                 ro.set("jskroot_controlcheck_result", "SESSION");
             }
         }
-        if(flag && ro.equals("jskroot_control_post","X") && !ro.isPost())
+
+        if(flag && (ro.equals("jskroot_control_post","X") || ro.equals("jskroot_control_put","X") || ro.equals("jskroot_control_delete","X")) && ro.isGet())
         {
             flag=false;
-            controldata.set("result_post","X");
+            controldata.set("result_method","X");
 
-            ro.set("jskroot_controlcheck_result", "POST");
+            ro.set("jskroot_controlcheck_result", "METHOD");
         }
+
+        if(flag && (ro.equals("jskroot_control_get","X") || ro.equals("jskroot_control_put","X") || ro.equals("jskroot_control_delete","X")) && ro.isPost())
+        {
+            flag=false;
+            controldata.set("result_method","X");
+
+            ro.set("jskroot_controlcheck_result", "METHOD");
+        }
+
+        if(flag && (ro.equals("jskroot_control_get","X") || ro.equals("jskroot_control_post","X") || ro.equals("jskroot_control_delete","X")) && ro.isPut())
+        {
+            flag=false;
+            controldata.set("result_method","X");
+
+            ro.set("jskroot_controlcheck_result", "METHOD");
+        }
+
+        if(flag && (ro.equals("jskroot_control_get","X") || ro.equals("jskroot_control_post","X") || ro.equals("jskroot_control_put","X")) && ro.isDelete())
+        {
+            flag=false;
+            controldata.set("result_method","X");
+
+            ro.set("jskroot_controlcheck_result", "METHOD");
+        }
+
         if(flag && ro.equals("jskroot_control_inside","X") && !ro.isInsideRequest())
         {
             flag=false;

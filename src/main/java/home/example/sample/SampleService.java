@@ -27,6 +27,9 @@ public class SampleService extends JStarkService
     {
         DataBase db = getDatabase();
 
+        ArrayList open_year = ro.getArrayList("open_year");
+        db.defineArray("open_year", open_year.size());
+
         if(db.isORACLE || db.isCUBRID)
         {
             db.query(" select                    ");
@@ -34,13 +37,20 @@ public class SampleService extends JStarkService
             db.query(" from                      ");
             db.query(" sample_content a          ");
 
+            db.query(" where 1=1                          ");
+
             if(!ro.nullString("search_title"))
             {
-                db.query(" where                           ");
-                db.query(" title like '%'||:title||'%'     ");
+                db.query(" and title like '%'||:title||'%'     ");
 
                 //어느 위치에서나 값을 Binding 가능
                 db.set("title", ro.getString("search_title"));
+            }
+
+            if(!ro.nullString("open_year"))
+            {
+                db.query(" and open_year in (:open_year)");
+                db.set("open_year", open_year, false);
             }
 
             if(ro.equals("jskvar_sort",new String[]{"title", "money", "open_year"}) || ro.equals("jskvar_sort_type", new String[]{"asc", "desc"}))
@@ -75,13 +85,20 @@ public class SampleService extends JStarkService
             db.query(" from                      ");
             db.query(" sample_content a (nolock) ");
 
+            db.query(" where 1=1                        ");
+
             if(!ro.nullString("search_title"))
             {
-                db.query(" where                         ");
-                db.query(" title like '%'+:title+'%'     ");
+                db.query(" and title like '%'+:title+'%'     ");
 
                 //어느 위치에서나 값을 Binding 가능
                 db.set("title", ro.getString("search_title"));
+            }
+
+            if(!ro.nullString("open_year"))
+            {
+                db.query(" and open_year in (:open_year)");
+                db.set("open_year", open_year, false);
             }
         }
         else if(db.isMARIADB)
@@ -91,13 +108,20 @@ public class SampleService extends JStarkService
             db.query(" from                      ");
             db.query(" sample_content a          ");
 
+            db.query(" where 1=1                                    ");
+
             if(!ro.nullString("search_title"))
             {
-                db.query(" where                                     ");
-                db.query(" title like concat(concat('%',:title),'%') ");
+                db.query(" and title like concat(concat('%',:title),'%') ");
 
                 //어느 위치에서나 값을 Binding 가능
                 db.set("title", ro.getString("search_title"));
+            }
+
+            if(!ro.nullString("open_year"))
+            {
+                db.query(" and open_year in (:open_year)");
+                db.set("open_year", open_year, false);
             }
 
             if(ro.equals("jskvar_sort",new String[]{"title", "money", "open_year"}) || ro.equals("jskvar_sort_type", new String[]{"asc", "desc"}))
@@ -131,14 +155,19 @@ public class SampleService extends JStarkService
             db.query(" a.*                                 ");
             db.query(" from                                ");
             db.query(" sample_content a                    ");
-
+            db.query(" where 1=1                          ");
             if(!ro.nullString("search_title"))
             {
-                db.query(" where                           ");
-                db.query(" title like '%'||:title||'%'     ");
+                db.query(" and title like '%'||:title||'%'     ");
 
                 //어느 위치에서나 값을 Binding 가능
                 db.set("title", ro.getString("search_title"));
+            }
+
+            if(!ro.nullString("open_year"))
+            {
+                db.query(" and open_year in (:open_year)");
+                db.set("open_year", open_year, false);
             }
         }
 
@@ -155,6 +184,18 @@ public class SampleService extends JStarkService
         db.execute();
 
         //결과를 DList로 가져옴
+        return db.getDList();
+    }
+
+    public DList getOpenYear(RequestObject ro) throws Exception
+    {
+        DataBase db = getDatabase();
+
+        db.query("select open_year from sample_content group by open_year");
+        db.prepare();
+        //db.set("", ro.getString(""));
+        db.execute();
+
         return db.getDList();
     }
 
@@ -755,7 +796,7 @@ public class SampleService extends JStarkService
             db.query(" insert into sample_clob(a,b) values(:a,:b) ");
             db.prepare();
             db.set("a",seq);
-            db.set("b",ro.getString("b"));
+            db.set("b", ro.getString("b"));
             db.execute();
             */
 

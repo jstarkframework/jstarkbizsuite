@@ -113,10 +113,6 @@
             <td class="jskui_left">Tooltip</td>
             <td></td>
         </tr>
-        <tr onmouseover="jskfn_tr_mouseover(this);" onmouseout="jskfn_tr_mouseout(this);" onclick="fn_view('/example/sample/sample_url.do'); return false;" style="cursor:pointer" >
-            <td class="jskui_left">URL SAMPLE</td>
-            <td></td>
-        </tr>
         <tr onmouseover="jskfn_tr_mouseover(this);" onmouseout="jskfn_tr_mouseout(this);" onclick="fn_view('/example/sample/sample_dynamic_table.do'); return false;" style="cursor:pointer" >
             <td class="jskui_left">Dynamic Table</td>
             <td></td>

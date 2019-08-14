@@ -2,7 +2,11 @@ package home.example.sample;
 
 import java.io.FileOutputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
+import org.apache.http.Header;
+import org.apache.http.cookie.Cookie;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -17,9 +21,12 @@ import org.jstark.framework.core.DData;
 import org.jstark.framework.core.DList;
 import org.jstark.framework.core.HttpRequest;
 import org.jstark.framework.core.JCache;
+import org.jstark.framework.core.JConfigEx;
+import org.jstark.framework.core.JLog;
 import org.jstark.framework.core.SimpleDataBase;
 import org.jstark.framework.core.ValidCheck;
 import org.jstark.framework.core.hs.DBMS;
+import org.jstark.framework.core.hs.HttpBean;
 import org.jstark.framework.core.hs.Txt;
 import org.jstark.framework.core.hs.UserBean;
 import org.jstark.framework.web.JStarkUser;
@@ -30,7 +37,11 @@ import org.jstark.platform.core.DataCheck;
 import org.jstark.platform.core.LangUtils;
 import org.jstark.utils.ExcelUtils;
 import org.jstark.utils.JsonUtils;
+import org.jstark.utils.LdapUtils;
 import org.jstark.utils.PdfUtils;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 import jstark.platform.ActionType;
 import jstark.platform.PlatformChannel;
@@ -366,38 +377,86 @@ public class SampleAction extends PlatformChannel
         return null;
     }
 
-    //http://localhost/restful/product_item_number/go.do
-    @Link("restful")
+    //http://localhost/api/v1/item/item_number
+    @Link("/api/v1/item*")
     public String doSampleRestful() throws Exception
     {
+        int entity = 2;
+        String key = getLink(entity+1);
+
+        String jsonbody = ro.getRequestBody();
+
+        JLog.test("jsonbody:"+jsonbody);
+
         String json="";
-        if(isRestfulList(1))
+
+        JLog.test("entity:"+getLink(entity));
+        JLog.test("key:"+key);
+
+        if(isRestfulList(entity))
         {
             ro.set("type", "LIST");
+
+            ro.set("list", service.getList(ro));
+
             json = getJson("S", "success");
         }
-        else if(isRestfulInsert(1))
+        else if(isRestfulInsert(entity))
         {
             ro.set("type", "INSERT");
-            ro.set("item", getLink(1));
+            //ro.set("item", getLink(2));
+
+            JsonObject jobj = new Gson().fromJson(jsonbody, JsonObject.class);
+
+            String money = JsonUtils.getJsonString(jobj, "money");
+            String title = JsonUtils.getJsonString(jobj, "title");
+            String open_year = JsonUtils.getJsonString(jobj, "open_year");
+
+            ro.set("money", money);
+            ro.set("title", title);
+            ro.set("open_year", open_year);
+
+            service.setInsert(ro);
+
             json = getJson("S", "success");
         }
-        else if(isRestfulView(1))
+        else if(isRestfulView(entity))
         {
             ro.set("type", "VIEW");
-            ro.set("item", getLink(1));
+            ro.set("mid", key);
+
+            ro.set("info", service.getInfo(ro));
+
             json = getJson("S", "success");
         }
-        else if(isRestfulUpdate(1))
+        else if(isRestfulUpdate(entity))
         {
             ro.set("type", "UPDATE");
-            ro.set("item", getLink(1));
+            ro.set("mid", key);
+
+            JsonObject jobj = new Gson().fromJson(jsonbody, JsonObject.class);
+
+            String money = JsonUtils.getJsonString(jobj, "money");
+            String title = JsonUtils.getJsonString(jobj, "title");
+            String open_year = JsonUtils.getJsonString(jobj, "open_year");
+
+            ro.set("money", money);
+            ro.set("title", title);
+            ro.set("open_year", open_year);
+
+            service.setUpdate(ro);
+
+            ro.set("info", service.getInfo(ro));
+
             json = getJson("S", "success");
         }
-        else if(isRestfulDelete(1))
+        else if(isRestfulDelete(entity))
         {
             ro.set("type", "DELETE");
-            ro.set("item", getLink(1));
+            ro.set("mid", key);
+
+            service.setDelete(ro);
+
             json = getJson("S", "success");
         }
 
@@ -698,11 +757,13 @@ public class SampleAction extends PlatformChannel
     {
         //j_param 설정 : 필요한 경우에 만 사용
         setParamSet("cache.cache");
-        setParam(new String[]{"search_title", "j_page"});
+        setParam(new String[]{"search_title", "j_page", "open_year"});
 
         DList list = service.getList(ro);
 
         addModel("list", list);
+
+        addModel("open_year_list", service.getOpenYear(ro));
 
         return "view:/WEB-INF/jsp/home/example/sample/sample_parameter_cache.jsp";
     }
@@ -1023,12 +1084,6 @@ public class SampleAction extends PlatformChannel
         return "view:/WEB-INF/jsp/home/example/sample/sample_tooltip.jsp";
     }
 
-    @Link("/example/sample/sample_url.do")
-    public String doSampleUrl() throws Exception
-    {
-        return "view:/WEB-INF/jsp/home/example/sample/sample_url.jsp";
-    }
-
     @Link("/example/sample/sample_dynamic_table.do")
     public String doSampleDynamicTable() throws Exception
     {
@@ -1081,6 +1136,345 @@ public class SampleAction extends PlatformChannel
     public void doSamplePdf() throws Exception
     {
         PdfUtils.makeHTMLtoPDF(ro, "http://localhost/example/sample/sample_pdf_page.do", "sample.pdf");
+    }
+
+    @Link("/example/sample/sample_api_list.do")
+    @Control(Control.ANONYMOUS)
+    public String doSampleApiList() throws Exception
+    {
+        //input header
+        HashMap header = new HashMap();
+
+        header.put("Cookie", ro.getCookieString());
+        //header.put("Cookie", "JSESSIONID=D839DC4DA1B11A29F743F2773265440E");
+
+        header.put("User-Agent", "Mozila/5.0");
+
+        String token = "";
+        if(token!=null && !"".equals(token))
+        {
+            header.put("Authorization", "Bearer "+token);
+        }
+
+        HttpBean http = CoreUtils.toApiGet("http://localhost/api/v1/item", header);
+
+        JLog.test(http.body);
+        JLog.test(http.status);
+        JLog.test(http.headers);
+        JLog.test(http.cookies);
+
+        //output header
+        Header[] oheaders = http.headers;
+        for(Header oheader : oheaders)
+        {
+            JLog.test(oheader);
+        }
+
+        //output cookie
+        List<Cookie> ocookies = http.cookies;
+        if(ocookies.isEmpty())
+        {
+            JLog.test("Empty");
+        }
+        else
+        {
+            for (Cookie ocookie : ocookies)
+            {
+                JLog.test("Cookie Name\t : "+ocookie.getName());
+                JLog.test("Cookie Value\t : "+ocookie.getValue());
+                JLog.test("Cookie Domain\t : "+ocookie.getDomain());
+            }
+        }
+
+        //output body to json
+        //JsonObject jobj = new Gson().fromJson(http.body, JsonObject.class);
+
+        return http.body;
+    }
+
+    @Link("/example/sample/sample_api_insert.do")
+    public String doSampleApiInsert() throws Exception
+    {
+        //input header
+        HashMap header = new HashMap();
+
+        header.put("Cookie", ro.getCookieString());
+        //header.put("Cookie", "JSESSIONID=D839DC4DA1B11A29F743F2773265440E");
+
+        header.put("User-Agent", "Mozila/5.0");
+
+        boolean isJson = true;
+        String jsonbody = "";
+        if(isJson)
+        {
+            header.put("Content-type", "application/json");
+            header.put("Accept", "application/json");
+
+            jsonbody = "{\r\n" +
+                    "  \"money\": \"12345\",\r\n" +
+                    "  \"title\": \"SuperMan\",\r\n" +
+                    "  \"open_year\": \"2007\"\r\n" +
+                    "}";
+        }
+
+        String token = "";
+        if(token!=null && !"".equals(token))
+        {
+            header.put("Authorization", "Bearer "+token);
+        }
+
+        //input param
+        //HashMap param = new HashMap();
+        //param.put("A", "1");
+
+        //HttpBean http = CoreUtils.toApiGet("http://localhost", header);
+        //HttpBean http = CoreUtils.toApiPost("http://localhost", header, param);
+        HttpBean http = CoreUtils.toApiPost("http://localhost/api/v1/item", header, null, jsonbody);
+
+        JLog.test(http.body);
+        JLog.test(http.status);
+        JLog.test(http.headers);
+        JLog.test(http.cookies);
+
+        //output header
+        Header[] oheaders = http.headers;
+        for(Header oheader : oheaders)
+        {
+            JLog.test(oheader);
+        }
+
+        //output cookie
+        List<Cookie> ocookies = http.cookies;
+        if(ocookies.isEmpty())
+        {
+            JLog.test("Empty");
+        }
+        else
+        {
+            for (Cookie ocookie : ocookies)
+            {
+                JLog.test("Cookie Name\t : "+ocookie.getName());
+                JLog.test("Cookie Value\t : "+ocookie.getValue());
+                JLog.test("Cookie Domain\t : "+ocookie.getDomain());
+            }
+        }
+
+        //output body to json
+        //JsonObject jobj = new Gson().fromJson(http.body, JsonObject.class);
+
+        return http.body;
+    }
+
+    @Link("/example/sample/sample_api_view.do")
+    public String doSampleApiView() throws Exception
+    {
+        //input header
+        HashMap header = new HashMap();
+
+        header.put("Cookie", ro.getCookieString());
+        //header.put("Cookie", "JSESSIONID=D839DC4DA1B11A29F743F2773265440E");
+
+        header.put("User-Agent", "Mozila/5.0");
+
+        String token = "";
+        if(token!=null && !"".equals(token))
+        {
+            header.put("Authorization", "Bearer "+token);
+        }
+
+        HttpBean http = CoreUtils.toApiGet("http://localhost/api/v1/item/M20140310AAAAAAAACM2SYW", header);
+
+        JLog.test(http.body);
+        JLog.test(http.status);
+        JLog.test(http.headers);
+        JLog.test(http.cookies);
+
+        //output header
+        Header[] oheaders = http.headers;
+        for(Header oheader : oheaders)
+        {
+            JLog.test(oheader);
+        }
+
+        //output cookie
+        List<Cookie> ocookies = http.cookies;
+        if(ocookies.isEmpty())
+        {
+            JLog.test("Empty");
+        }
+        else
+        {
+            for (Cookie ocookie : ocookies)
+            {
+                JLog.test("Cookie Name\t : "+ocookie.getName());
+                JLog.test("Cookie Value\t : "+ocookie.getValue());
+                JLog.test("Cookie Domain\t : "+ocookie.getDomain());
+            }
+        }
+
+        //output body to json
+        //JsonObject jobj = new Gson().fromJson(http.body, JsonObject.class);
+
+        return http.body;
+    }
+
+    @Link("/example/sample/sample_api_update.do")
+    public String doSampleApiUpdate() throws Exception
+    {
+        //input header
+        HashMap header = new HashMap();
+
+        header.put("Cookie", ro.getCookieString());
+        //header.put("Cookie", "JSESSIONID=D839DC4DA1B11A29F743F2773265440E");
+
+        header.put("User-Agent", "Mozila/5.0");
+
+        boolean isJson = true;
+        String jsonbody = "";
+        if(isJson)
+        {
+            header.put("Content-type", "application/json");
+            header.put("Accept", "application/json");
+
+            jsonbody = "{\r\n" +
+                    "  \"money\": \"12345\",\r\n" +
+                    "  \"title\": \"SuperMan\",\r\n" +
+                    "  \"open_year\": \"2007\"\r\n" +
+                    "}";
+        }
+
+        String token = "";
+        if(token!=null && !"".equals(token))
+        {
+            header.put("Authorization", "Bearer "+token);
+        }
+
+        HttpBean http = CoreUtils.toApiPut("http://localhost/api/v1/item/M20140310AAAAAAAACM2SYW", header, null, jsonbody);
+
+        JLog.test(http.body);
+        JLog.test(http.status);
+        JLog.test(http.headers);
+        JLog.test(http.cookies);
+
+        //output header
+        Header[] oheaders = http.headers;
+        for(Header oheader : oheaders)
+        {
+            JLog.test(oheader);
+        }
+
+        //output cookie
+        List<Cookie> ocookies = http.cookies;
+        if(ocookies.isEmpty())
+        {
+            JLog.test("Empty");
+        }
+        else
+        {
+            for (Cookie ocookie : ocookies)
+            {
+                JLog.test("Cookie Name\t : "+ocookie.getName());
+                JLog.test("Cookie Value\t : "+ocookie.getValue());
+                JLog.test("Cookie Domain\t : "+ocookie.getDomain());
+            }
+        }
+
+        //output body to json
+        //JsonObject jobj = new Gson().fromJson(http.body, JsonObject.class);
+
+        return http.body;
+    }
+
+    @Link("/example/sample/sample_api_delete.do")
+    public String doSampleApiDelete() throws Exception
+    {
+        //input header
+        HashMap header = new HashMap();
+
+        header.put("Cookie", ro.getCookieString());
+        //header.put("Cookie", "JSESSIONID=D839DC4DA1B11A29F743F2773265440E");
+
+        header.put("User-Agent", "Mozila/5.0");
+
+        String token = "";
+        if(token!=null && !"".equals(token))
+        {
+            header.put("Authorization", "Bearer "+token);
+        }
+
+        HttpBean http = CoreUtils.toApiDelete("http://localhost/api/v1/item/M20140310AAAAAAAACM2SYW", header);
+
+        JLog.test(http.body);
+        JLog.test(http.status);
+        JLog.test(http.headers);
+        JLog.test(http.cookies);
+
+        //output header
+        Header[] oheaders = http.headers;
+        for(Header oheader : oheaders)
+        {
+            JLog.test(oheader);
+        }
+
+        //output cookie
+        List<Cookie> ocookies = http.cookies;
+        if(ocookies.isEmpty())
+        {
+            JLog.test("Empty");
+        }
+        else
+        {
+            for (Cookie ocookie : ocookies)
+            {
+                JLog.test("Cookie Name\t : "+ocookie.getName());
+                JLog.test("Cookie Value\t : "+ocookie.getValue());
+                JLog.test("Cookie Domain\t : "+ocookie.getDomain());
+            }
+        }
+
+        //output body to json
+        //JsonObject jobj = new Gson().fromJson(http.body, JsonObject.class);
+
+        return http.body;
+    }
+
+    @Link("/example/sample/sample_ldap.do")
+    public String doSampleLDAP() throws Exception
+    {
+        boolean flag = false;
+
+        JConfigEx cx = JConfigEx.getInstance("platform");
+        LdapUtils ldap = new LdapUtils(cx.getString("platform", "ldap.providerURL"), cx.getString("platform", "ldap.searchBASE"), cx.getString("platform", "ldap.searchGROUP"), cx.getString("platform", "ldap.searchID"), cx.getString("platform", "ldap.searchPW"));
+
+        if(ldap.isUser(ro.getString("u_id"), ro.getString("u_pw")))
+        {
+            flag = true;
+
+            HashMap map = ldap.getUserInfo(ro.getString("u_id"), new String[]{"displayName", "Company", "department", "mail", "mobile", "title", "lastLogonTimestamp", "pwdLastSet"});
+
+            if(map != null)
+            {
+                String displayName = (String) map.get("displayName");
+                String company = (String) map.get("Company");
+                String department = (String) map.get("department");
+                String mail = (String) map.get("mail");
+                String mobile = (String) map.get("mobile");
+                String title = (String) map.get("title");
+                String lastLogonTimestamp = (String) map.get("lastLogonTimestamp");
+                String pwdLastSet = (String) map.get("pwdLastSet");
+
+                JLog.test("displayName:"+displayName);
+                JLog.test("company:"+company);
+                JLog.test("department:"+department);
+                JLog.test("mail:"+mail);
+                JLog.test("mobile:"+mobile);
+                JLog.test("title:"+title);
+                JLog.test("lastLogonTimestamp:"+lastLogonTimestamp);
+                JLog.test("pwdLastSet:"+pwdLastSet);
+            }
+        }
+
+        return flag+"";
     }
 }
 

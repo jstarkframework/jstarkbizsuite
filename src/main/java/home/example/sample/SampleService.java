@@ -631,15 +631,19 @@ public class SampleService extends JStarkService
     {
         DataBase db = getDatabase();
 
+        String mid = JKey.getSequence("M");
+
         db.query(" insert into sample_content(mid,title,money,open_year) ");
         db.query(" values(:seq,:title,:money,:open_year)                 ");
 
         db.prepare();
-        db.set("seq", JKey.getSequence("M"));
+        db.set("seq", mid);
         db.set("title", CoreUtils.reHtml(ro.getString("title")));
         db.set("money", ro.getLong("money"));
         db.set("open_year", ro.getString("open_year"));
         db.execute();
+
+        ro.set("mid", mid);
 
         //캐쉬 갱신 및 등록 설정, 캐쉬 미 사용시 필요없음.
         JCache.remove("SampleService.getListCache");

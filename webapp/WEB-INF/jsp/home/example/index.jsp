@@ -133,6 +133,10 @@
             <td class="jskui_left">PDF Download</td>
             <td></td>
         </tr>
+        <tr onmouseover="jskfn_tr_mouseover(this);" onmouseout="jskfn_tr_mouseout(this);" onclick="fn_view('/example/sample/sample_api.do'); return false;" style="cursor:pointer" >
+            <td class="jskui_left">API / RESTFUL</td>
+            <td></td>
+        </tr>
         <%
         }
         else if(ro.equals("j_sample_tab","C"))

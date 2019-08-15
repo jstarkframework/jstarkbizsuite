@@ -364,7 +364,7 @@ public class SampleAction extends PlatformChannel
 
             txt.an("<script type=\"text/javascript\">");
             txt.an("parent.parent.jskfn_alert('"+LangUtils.lang(ro,"JSTARKPLATFORM00085","삭제되었습니다.")+"');");
-            txt.an("parent.location='"+jcontext+"/example/sample/sample_list.do';");
+            txt.an("parent.location='"+jcontext+"/example/sample/sample_list.do?j_page=1';");
             txt.an("</script>");
 
             return txt.toString();
@@ -443,7 +443,7 @@ public class SampleAction extends PlatformChannel
 
             txt.an("<script type=\"text/javascript\">");
             txt.an(" parent.parent.jskfn_alert('삭제가 완료되었습니다.'); ");
-            txt.an(" parent.location='"+jcontext+"/example/sample/sample_excel_file_upload.do'; ");
+            txt.an(" parent.location='"+jcontext+"/example/sample/sample_excel_file_upload.do?j_page=1'; ");
             txt.an("</script>");
 
             return txt.toString();
@@ -614,7 +614,7 @@ public class SampleAction extends PlatformChannel
 
         txt.an("<script type=\"text/javascript\">");
         txt.an("parent.parent.jskfn_alert('삭제가 완료되었습니다.');");
-        txt.an("parent.location='"+jcontext+"/example/sample/sample_file_upload.do';");
+        txt.an("parent.location='"+jcontext+"/example/sample/sample_file_upload.do?j_page=1';");
         txt.an("</script>");
 
         return txt.toString();

@@ -33,6 +33,13 @@ public class SampleApiAction extends PlatformChannel
 
     SampleService service = SampleService.getInstance();
 
+
+    @Link("/example/sample/sample_api.do")
+    public String doSampleApi() throws Exception
+    {
+        return "view:/WEB-INF/jsp/home/example/sample/sample_api.jsp";
+    }
+
     //http://localhost/api/v1/item/111111
     @Link("/api/v1/item*")
     @Control(Control.ANONYMOUS)
@@ -43,7 +50,7 @@ public class SampleApiAction extends PlatformChannel
 
         String jsonbody = ro.getRequestBody();
 
-        //JLog.test("jsonbody:"+jsonbody);
+        JLog.test("jsonbody:"+jsonbody);
 
         String json="";
 

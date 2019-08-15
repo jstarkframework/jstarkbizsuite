@@ -172,8 +172,8 @@ public class PlatformChannel extends JStarkAction
         {
             if(code!=null && !"".equals(code) && ro!=null)
             {
-                ro.set("j_opendata-code", code);
-                ro.set("j_opendata-text", msg);
+                ro.set("j_opendata_code", code);
+                ro.set("j_opendata_text", msg);
 
                 data = ro.toDData();
             }

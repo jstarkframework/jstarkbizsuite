@@ -27,8 +27,17 @@ jstarkbizsuite\webapp\WEB-INF\config\sun\jstark_key.jsk<br />
 <br />
 <br />
 <br />
-health 체크
- - URL : /health
- - src/main/java/jstark/platform/HealthAction.java
- <br />
- <br />
+health 체크<br />
+ . URL : /health<br />
+ . src/main/java/jstark/platform/HealthAction.java<br />
+<br />
+<br />
+<br />
+Opendata<br />
+ . Token 생성 : /odata/token.do<br />
+ . 로그인 상태 : /odata/user/login_status.do<br />
+ . 패스워드 변경 : /odata/user/password.do<br />
+ . 로그아웃: /odata/user/logout.do<br />
+<br />
+<br />
+<br />

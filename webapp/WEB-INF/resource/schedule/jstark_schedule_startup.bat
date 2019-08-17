@@ -1,9 +1,11 @@
-set path=.;C:/DEV/java/jdk1.8.0_181/bin
-set jstark_home=C:/DEV/jstarkProject
-set jstark_name=jstarkbizsuite
-set classpath=%jstark_home%/%jstark_name%/WEB-INF/classes
-set classpath=%classpath%;%jstark_home%/jstark_external_lib/*
-set classpath=%classpath%;%jstark_home%/jstark_external_lib/dbms/*
-set classpath=%classpath%;%jstark_home%/jstark_external_lib/servlet/servlet-api.jar
-set classpath=%classpath%;%jstark_home%/%jstark_name%/WEB-INF/lib/*
-java -cp %classpath%; org.jstark.schedule.JStarkSchedule
+set path=.;C:/DEV/Java/jdk1.8.0_181/bin
+
+set schedule_driver=oracle.jdbc.OracleDriver
+set schedule_url=jdbc:oracle:thin:@localhost:1521:XE
+set schedule_id=jstark
+set schedule_pw=jstark
+set schedule_host=http://localhost:80
+set schedule_interval=20000
+set schedule_thread=10
+
+java -jar jstarkschedulerunner.jar %schedule_driver% %schedule_url% %schedule_id% %schedule_pw% %schedule_host% %schedule_interval% %schedule_thread%

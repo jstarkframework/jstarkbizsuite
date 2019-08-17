@@ -26,6 +26,9 @@ import org.jstark.framework.core.hs.DBMS;
 import org.jstark.framework.core.hs.Txt;
 import org.jstark.framework.core.hs.UserBean;
 import org.jstark.framework.web.JStarkUser;
+import org.jstark.framework.web.annotation.ActionName;
+import org.jstark.framework.web.annotation.ActionParam;
+import org.jstark.framework.web.annotation.ActionParams;
 import org.jstark.framework.web.annotation.Control;
 import org.jstark.framework.web.annotation.Link;
 import org.jstark.framework.web.annotation.Upload;
@@ -158,6 +161,13 @@ public class SampleAction extends PlatformChannel
         return validation;
     }
 
+    @ActionName(name = "Sample List", text = "샘플 리스트")
+    @ActionParams({
+            @ActionParam(name = "open_year", text = "개봉일", required = false, type = "string array", in = "query"),
+            @ActionParam(name = "search_title", text = "제목", required = false, type = "string", in = "query"),
+            @ActionParam(name = "jskvar_sort", text = "정렬", required = false, type = "string", in = "query"),
+            @ActionParam(name = "j_page", text = "페이지 번호", required = false, type = "string", in = "query")
+    })
     @Link("/example/sample/sample_list.do")
     public String doSampleList() throws Exception
     {

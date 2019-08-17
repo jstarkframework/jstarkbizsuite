@@ -8,6 +8,9 @@ import org.apache.http.cookie.Cookie;
 import org.jstark.framework.core.CoreUtils;
 import org.jstark.framework.core.JLog;
 import org.jstark.framework.core.hs.HttpBean;
+import org.jstark.framework.web.annotation.ActionName;
+import org.jstark.framework.web.annotation.ActionParam;
+import org.jstark.framework.web.annotation.ActionParams;
 import org.jstark.framework.web.annotation.Control;
 import org.jstark.framework.web.annotation.Link;
 import org.jstark.utils.JsonUtils;
@@ -40,17 +43,20 @@ public class SampleApiAction extends PlatformChannel
         return "view:/WEB-INF/jsp/home/example/sample/sample_api.jsp";
     }
 
-    //http://localhost/api/v1/item/111111
+    @ActionName(name = "Restful Sample", text = "http://localhost/api/v1/item/111111 와 같은 형태로 호출")
+    @ActionParams({
+            @ActionParam(name = "Authorization", text = "인증토큰", required = true, type = "string", in = "header"),
+            @ActionParam(name = "mid", text = "mid", required = false, type = "string", in = "path"),
+            @ActionParam(name = "title", text = "제목", required = true, type = "string", in = "query"),
+            @ActionParam(name = "money", text = "수입", required = true, type = "string", in = "query"),
+            @ActionParam(name = "open_year", text = "개봉일", required = true, type = "string", in = "query")
+    })
     @Link("/api/v1/item*")
     @Control(Control.ANONYMOUS)
     public String doSampleRestful() throws Exception
     {
         int entity = 2;
-        String key = getLink(entity+1);
-
-        String jsonbody = ro.getRequestBody();
-
-        JLog.test("jsonbody:"+jsonbody);
+        String mid = getLink(entity+1);
 
         String json="";
 
@@ -70,6 +76,8 @@ public class SampleApiAction extends PlatformChannel
             ro.set("type", "INSERT");
             //ro.set("item", getLink(2));
 
+            String jsonbody = ro.getRequestBody();
+
             JsonObject jobj = new Gson().fromJson(jsonbody, JsonObject.class);
 
             String money = JsonUtils.getJsonString(jobj, "money");
@@ -87,7 +95,7 @@ public class SampleApiAction extends PlatformChannel
         else if(isRestfulView(entity))
         {
             ro.set("type", "VIEW");
-            ro.set("mid", key);
+            ro.set("mid", mid);
 
             ro.set("info", service.getInfo(ro));
 
@@ -96,7 +104,9 @@ public class SampleApiAction extends PlatformChannel
         else if(isRestfulUpdate(entity))
         {
             ro.set("type", "UPDATE");
-            ro.set("mid", key);
+            ro.set("mid", mid);
+
+            String jsonbody = ro.getRequestBody();
 
             JsonObject jobj = new Gson().fromJson(jsonbody, JsonObject.class);
 
@@ -117,7 +127,7 @@ public class SampleApiAction extends PlatformChannel
         else if(isRestfulDelete(entity))
         {
             ro.set("type", "DELETE");
-            ro.set("mid", key);
+            ro.set("mid", mid);
 
             service.setDelete(ro);
 

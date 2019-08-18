@@ -9,15 +9,15 @@ jstark.application.properties에 DB 설정 이후 초기 데이터는 jstark.ini
 <br />
 <br />
 vm 옵션 JAVA_OPTS에<br />
--Djstark.env=dev<br />
+<code>-Djstark.env=dev</code><br />
 를 추가하면 jstark.application.properties 가 아닌 jstark.application.dev.properties 를 사용한다.<br />
 <br />
 아래와 같이 옵션을 설정하면<br />
--Djstark.mail:smtp_host=2.2.2.2<br />
+<code>-Djstark.mail:smtp_host=2.2.2.2</code><br />
 jstark.mail.properties의 smtp_host 값을 대체한다.<br />
 <br />
 컨테이너 환경의 경우 IP가 유동적이기 때문에 아래와 같이 서비스네임을 지정한다.<br />
--Djstark.servicename=jstarkbizsuite<br />
+<code>-Djstark.servicename=jstarkbizsuite</code><br />
 <br />
 <br />
 <br />
@@ -43,7 +43,7 @@ Opendata<br />
 <br />
 Junit<br />
 Run COnfiguration - VM arguments 에 아래 설정 추가<br /> 
--Djstark.jstark_home=C:\DEV\workspace\jstarkbizsuite\target -Djstark.jstark_name=ROOT<br />
+<code>-Djstark.jstark\_home=C:\DEV\workspace\jstarkbizsuite\target -Djstark.jstark\_name=ROOT</code><br />
 <br />
 <br />
 <br />

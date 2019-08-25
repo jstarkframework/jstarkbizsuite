@@ -975,6 +975,39 @@ public class SampleService extends JStarkService
         db.executeBatch();
     }
 
+    public void setBatchList(RequestObject ro) throws Exception
+    {
+        DataBase db = getDatabase();
+
+        DList list = new DList();
+        int max_buffer = 1000;
+        while(list.next())
+        {
+            db.query(" insert into sample_batch(a,b,c) values(:a,:b,:c) ");
+            db.prepare();
+
+            for(int i=1;i<=max_buffer;i++)
+            {
+                db.set("a", list.getString("a"));
+                db.set("b", list.getString("b"));
+                db.set("c", list.getString("c"));
+
+                db.addBatch();
+
+                if(list.isLast())
+                {
+                    break;
+                }
+                else if(i!=max_buffer)
+                {
+                    list.next();
+                }
+            }
+
+            db.executeBatch();
+        }
+    }
+
     public DList getAutoComplete(RequestObject ro) throws Exception
     {
         DataBase db = getDatabase();

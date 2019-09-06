@@ -42,7 +42,7 @@ Opendata<br />
 <br />
 <br />
 Junit<br />
-Run COnfiguration - VM arguments 에 아래 설정 추가<br /> 
+Run Configuration - VM arguments 에 아래 설정 추가<br /> 
 <code>-Djstark.jstark\_home=C:\DEV\workspace\jstarkbizsuite\target -Djstark.jstark\_name=ROOT</code><br />
 <br />
 <br />

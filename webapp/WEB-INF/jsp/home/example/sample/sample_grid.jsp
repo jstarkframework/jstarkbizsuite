@@ -21,7 +21,7 @@ input[type=text]::-ms-clear
 </head>
 <body class="jskui_body_white" onmouseup="jskfn_grid_mouseup()" onclick="jskfn_grid_menu_close()" onkeydown="jskfn_grid_keydown(event)">
 
-<form name="jskform" method="post" enctype="multipart/form-data" action="">
+<form name="jskform" method="post" action="">
 <input name="jskid_submitblock" id="jskid_submitblock" style="display:none;" />
 <input type="hidden" name="grid_data" id="grid_data" value="" />
 
@@ -63,12 +63,14 @@ input[type=text]::-ms-clear
 
 <script type="text/javascript" src="/web/jstark/platform/js/jstark.grid.min.js?<%=CoreUtils.getRevision()%>"></script>
 <script type="text/javascript">
-   
+    
+    var grid_align="center";
+
     window.onload = function()
     {
         try{parent.jskfn_offloading();}catch(e){}
         
-        jskfn_grid_init();
+        jskfn_grid_init(grid_align);
     };
 
     window.onerror = function(msg,url,line)
@@ -112,6 +114,7 @@ input[type=text]::-ms-clear
         cell2.setAttribute("gedit", "true");
         cell2.setAttribute("gtype", "int");
         cell2.style.cursor="pointer";
+        cell2.style.textAlign=grid_align;
         cell2.innerHTML = col2;
           
         var cell3 = row.insertCell(2);          
@@ -119,6 +122,7 @@ input[type=text]::-ms-clear
         cell3.setAttribute("gedit", "true");
         cell3.setAttribute("gtype", "int");
         cell3.style.cursor="pointer";
+        cell3.style.textAlign=grid_align;
         cell3.innerHTML = col3;
            
         var cell4 = row.insertCell(3);
@@ -211,7 +215,7 @@ input[type=text]::-ms-clear
                 
                 jskfn.getId("grid_data").value=temp_grid_data;
                 
-                //grid data submit();
+                //grid data submit
                 //document.jskform.action = jskfn_open_url("/");
                 //jskfn_submit(document.jskform);
             }

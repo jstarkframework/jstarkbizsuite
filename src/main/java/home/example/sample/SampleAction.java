@@ -1050,7 +1050,10 @@ public class SampleAction extends PlatformChannel
     @Link("/example/sample/sample_pdf.do")
     public void doSamplePdf() throws Exception
     {
-        PdfUtils.makeHTMLtoPDF(ro, "http://localhost/example/sample/sample_pdf_page.do", "sample.pdf");
+
+        System.out.println("////////////"+ro.getDomain());
+
+        PdfUtils.makeHTMLtoPDF(ro, ro.getDomain()+"/example/sample/sample_pdf_page.do", "sample.pdf");
     }
 
 

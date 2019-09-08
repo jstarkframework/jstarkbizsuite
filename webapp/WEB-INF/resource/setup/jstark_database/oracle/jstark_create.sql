@@ -572,6 +572,40 @@ create table jstark_schedule_result
    sch_msg varchar2(2000)
 );
 
+
+create table jstark_matrix(
+    client varchar2(100),
+    mat_no varchar2(30),
+    mat_code varchar2(100),
+    mat_title varchar2(100),
+    a_date date,
+    a_user varchar2(30),
+    c_date date,
+    c_user varchar2(30)
+);
+
+create table jstark_matrix_data(
+    client varchar2(30),
+    mat_no varchar2(30),
+    dat_no varchar2(30),
+    sort_no number,
+    c1 varchar2(500),
+    c2 varchar2(500),
+    c3 varchar2(500),
+    c4 varchar2(500),
+    c5 varchar2(500),
+    c6 varchar2(500),
+    c7 varchar2(500),
+    c8 varchar2(500),
+    c9 varchar2(500),
+    c10 varchar2(500),
+    c11 varchar2(500),
+    c12 varchar2(500),
+    c13 varchar2(500),
+    c14 varchar2(500),
+    c15 varchar2(500)
+);
+
 create unique index jstark_schedule_pk on jstark_schedule
 (client, sch_no);
 

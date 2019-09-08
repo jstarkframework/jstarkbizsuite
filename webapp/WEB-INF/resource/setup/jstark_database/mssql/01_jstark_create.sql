@@ -543,26 +543,60 @@ create table jstark_schedule
 
 create table jstark_schedule_log
 (
-   sch_date varchar(10),
-   sch_flag varchar(1)
+   sch_date nvarchar(10),
+   sch_flag nvarchar(1)
 );
 
 create table jstark_schedule_today
 (
-   sch_no varchar(30),
-   r_date varchar(16)
+   sch_no nvarchar(30),
+   r_date nvarchar(16)
 );
 
 create table jstark_schedule_result
 (
-   sch_log_no varchar(30),
-   sch_no varchar(30),
-   sch_date varchar(10),
-   s_date varchar(19),
-   e_date varchar(19),
+   sch_log_no nvarchar(30),
+   sch_no nvarchar(30),
+   sch_date nvarchar(10),
+   s_date nvarchar(19),
+   e_date nvarchar(19),
    sch_time int,
-   sch_result varchar(1),
-   sch_msg varchar(2000)
+   sch_result nvarchar(1),
+   sch_msg nvarchar(2000)
+);
+
+
+create table jstark_matrix(
+    client nvarchar(100),
+    mat_no nvarchar(30),
+    mat_code nvarchar(100),
+    mat_title nvarchar(100),
+    a_date datetime,
+    a_user nvarchar(30),
+    c_date datetime,
+    c_user nvarchar(30)
+);
+
+create table jstark_matrix_data(
+    client nvarchar(30),
+    mat_no nvarchar(30),
+    dat_no nvarchar(30),
+    sort_no int,
+    c1 nvarchar(500),
+    c2 nvarchar(500),
+    c3 nvarchar(500),
+    c4 nvarchar(500),
+    c5 nvarchar(500),
+    c6 nvarchar(500),
+    c7 nvarchar(500),
+    c8 nvarchar(500),
+    c9 nvarchar(500),
+    c10 nvarchar(500),
+    c11 nvarchar(500),
+    c12 nvarchar(500),
+    c13 nvarchar(500),
+    c14 nvarchar(500),
+    c15 nvarchar(500)
 );
 
 create unique index jstark_schedule_pk on jstark_schedule

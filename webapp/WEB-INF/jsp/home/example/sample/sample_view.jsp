@@ -21,6 +21,7 @@
 
     <button type="button" onclick="fn_modify(); return false;">Modify</button>
     <button type="button" onclick="fn_delete(); return false;">Delete</button>
+    <img src="/web/jstark/platform/img/jskimg_bar.gif" alt="bar" />
     <button type="button" onclick="fn_list(); return false;">List</button>
 
     </div>

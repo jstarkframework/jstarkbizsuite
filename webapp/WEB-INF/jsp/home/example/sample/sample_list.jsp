@@ -32,6 +32,7 @@
 
     %>
     <button type="button" onclick="fn_down_excel(); return false;">Excel</button>
+    <img src="/web/jstark/platform/img/jskimg_bar.gif" alt="bar" />
     <button type="button" onclick="fn_add(); return false;">Add</button>
 
     </div>

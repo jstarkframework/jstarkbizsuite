@@ -68,7 +68,7 @@
 
     function fn_get_token()
     {
-        var url = "http://localhost/odata/token.do";
+        var url = "/odata/token.do";
         
         //접속 계정
         var u_id = jskfn.getId("u_id").value;
@@ -104,7 +104,7 @@
 
     function fn_data_list()
     {
-        var url = "http://localhost/api/v1/item";
+        var url = "/api/v1/item";
 
         var user_token = "Bearer "+mytoken;
         
@@ -143,7 +143,7 @@
 
     function fn_data_view()
     {
-        var url = "http://localhost/api/v1/item/"+mid;
+        var url = "/api/v1/item/"+mid;
 
         var user_token = "Bearer "+mytoken;
         
@@ -169,7 +169,7 @@
 
     function fn_data_insert()
     {
-        var url = "http://localhost/api/v1/item";
+        var url = "/api/v1/item";
         
         var jsonbody = {"money":"12345","title":"SuperMan","open_year":"2007"};
         
@@ -200,7 +200,7 @@
 
     function fn_data_update()
     {
-        var url = "http://localhost/api/v1/item/"+mid;
+        var url = "/api/v1/item/"+mid;
         
         var jsonbody = {"money":"54321","title":"BatMan","open_year":"2017"};
         
@@ -229,7 +229,7 @@
 
     function fn_data_delete()
     {
-        var url = "http://localhost/api/v1/item/"+mid;
+        var url = "/api/v1/item/"+mid;
         
         var user_token = "Bearer "+mytoken;
         

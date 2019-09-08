@@ -158,7 +158,7 @@ public class SampleApiAction extends PlatformChannel
             header.put("Authorization", "Bearer "+token);
         }
 
-        HttpBean http = CoreUtils.toApiGet("http://localhost/api/v1/item", header);
+        HttpBean http = CoreUtils.toApiGet(ro.getDomain()+"/api/v1/item", header);
 
         JLog.test(http.body);
         JLog.test(http.status);
@@ -231,7 +231,7 @@ public class SampleApiAction extends PlatformChannel
 
         //HttpBean http = CoreUtils.toApiGet("http://localhost", header);
         //HttpBean http = CoreUtils.toApiPost("http://localhost", header, param);
-        HttpBean http = CoreUtils.toApiPost("http://localhost/api/v1/item", header, null, jsonbody);
+        HttpBean http = CoreUtils.toApiPost(ro.getDomain()+"/api/v1/item", header, null, jsonbody);
 
         JLog.test(http.body);
         JLog.test(http.status);
@@ -284,7 +284,7 @@ public class SampleApiAction extends PlatformChannel
             header.put("Authorization", "Bearer "+token);
         }
 
-        HttpBean http = CoreUtils.toApiGet("http://localhost/api/v1/item/M20140310AAAAAAAACM2SYW", header);
+        HttpBean http = CoreUtils.toApiGet(ro.getDomain()+"/api/v1/item/M20140310AAAAAAAACM2SYW", header);
 
         JLog.test(http.body);
         JLog.test(http.status);
@@ -351,7 +351,7 @@ public class SampleApiAction extends PlatformChannel
             header.put("Authorization", "Bearer "+token);
         }
 
-        HttpBean http = CoreUtils.toApiPut("http://localhost/api/v1/item/M20140310AAAAAAAACM2SYW", header, null, jsonbody);
+        HttpBean http = CoreUtils.toApiPut(ro.getDomain()+"/api/v1/item/M20140310AAAAAAAACM2SYW", header, null, jsonbody);
 
         JLog.test(http.body);
         JLog.test(http.status);
@@ -404,7 +404,7 @@ public class SampleApiAction extends PlatformChannel
             header.put("Authorization", "Bearer "+token);
         }
 
-        HttpBean http = CoreUtils.toApiDelete("http://localhost/api/v1/item/M20140310AAAAAAAACM2SYW", header);
+        HttpBean http = CoreUtils.toApiDelete(ro.getDomain()+"/api/v1/item/M20140310AAAAAAAACM2SYW", header);
 
         JLog.test(http.body);
         JLog.test(http.status);

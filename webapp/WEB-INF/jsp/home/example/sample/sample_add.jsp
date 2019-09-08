@@ -20,6 +20,7 @@
 
     <div class="jskui_button_bar">
     <button type="button" onclick="fn_submit(); return false;">Save</button>
+    <img src="/web/jstark/platform/img/jskimg_bar.gif" alt="bar" />
     <button type="button" onclick="fn_list(); return false;">List</button>
     </div>
 

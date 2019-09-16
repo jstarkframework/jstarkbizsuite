@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.http.Header;
 import org.apache.http.cookie.Cookie;
 import org.jstark.framework.core.CoreUtils;
+import org.jstark.framework.core.JConfig;
 import org.jstark.framework.core.JLog;
 import org.jstark.framework.core.hs.HttpBean;
 import org.jstark.framework.web.annotation.ActionName;
@@ -36,6 +37,7 @@ public class SampleApiAction extends PlatformChannel
 
     SampleService service = SampleService.getInstance();
 
+    int timeout = JConfig.getInstance().getInt("HTTPCOMPONENTS.timeout");
 
     @Link("/example/sample/sample_api.do")
     public String doSampleApi() throws Exception
@@ -158,7 +160,7 @@ public class SampleApiAction extends PlatformChannel
             header.put("Authorization", "Bearer "+token);
         }
 
-        HttpBean http = CoreUtils.toApiGet(ro.getDomain()+"/api/v1/item", header);
+        HttpBean http = CoreUtils.toApiGet(ro.getDomain()+"/api/v1/item", header, timeout);
 
         JLog.test(http.body);
         JLog.test(http.status);
@@ -231,7 +233,7 @@ public class SampleApiAction extends PlatformChannel
 
         //HttpBean http = CoreUtils.toApiGet("http://localhost", header);
         //HttpBean http = CoreUtils.toApiPost("http://localhost", header, param);
-        HttpBean http = CoreUtils.toApiPost(ro.getDomain()+"/api/v1/item", header, null, jsonbody);
+        HttpBean http = CoreUtils.toApiPost(ro.getDomain()+"/api/v1/item", header, null, jsonbody, timeout);
 
         JLog.test(http.body);
         JLog.test(http.status);
@@ -284,7 +286,7 @@ public class SampleApiAction extends PlatformChannel
             header.put("Authorization", "Bearer "+token);
         }
 
-        HttpBean http = CoreUtils.toApiGet(ro.getDomain()+"/api/v1/item/M20140310AAAAAAAACM2SYW", header);
+        HttpBean http = CoreUtils.toApiGet(ro.getDomain()+"/api/v1/item/M20140310AAAAAAAACM2SYW", header, timeout);
 
         JLog.test(http.body);
         JLog.test(http.status);
@@ -351,7 +353,7 @@ public class SampleApiAction extends PlatformChannel
             header.put("Authorization", "Bearer "+token);
         }
 
-        HttpBean http = CoreUtils.toApiPut(ro.getDomain()+"/api/v1/item/M20140310AAAAAAAACM2SYW", header, null, jsonbody);
+        HttpBean http = CoreUtils.toApiPut(ro.getDomain()+"/api/v1/item/M20140310AAAAAAAACM2SYW", header, null, jsonbody, timeout);
 
         JLog.test(http.body);
         JLog.test(http.status);
@@ -404,7 +406,7 @@ public class SampleApiAction extends PlatformChannel
             header.put("Authorization", "Bearer "+token);
         }
 
-        HttpBean http = CoreUtils.toApiDelete(ro.getDomain()+"/api/v1/item/M20140310AAAAAAAACM2SYW", header);
+        HttpBean http = CoreUtils.toApiDelete(ro.getDomain()+"/api/v1/item/M20140310AAAAAAAACM2SYW", header, timeout);
 
         JLog.test(http.body);
         JLog.test(http.status);

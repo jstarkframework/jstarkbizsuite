@@ -419,7 +419,8 @@ create table jstark_user
   a_user          varchar2(30),
   c_date          date,
   c_user          varchar2(30),
-  e_date          varchar2(8)
+  e_date          varchar2(8),
+  api_user_token  varchar2(50)
 );
 
 
@@ -604,6 +605,45 @@ create table jstark_matrix_data(
     c13 varchar2(500),
     c14 varchar2(500),
     c15 varchar2(500)
+);
+
+
+create table jstark_gateway
+(
+  gw_no       varchar2(30),
+  gw_title    varchar2(500),
+  gw_backend  varchar2(1000),
+  gw_token    varchar2(300),
+  a_date      date,
+  a_user      varchar2(30),
+  c_date      date,
+  c_user      varchar2(30)
+);
+
+create table jstark_gateway_auth
+(
+  client    varchar2(30),
+  gw_no     varchar2(30),
+  g_no      varchar2(30),
+  u_no      varchar2(30),
+  a_date    date,
+  a_user    varchar2(30),
+  c_date    date,
+  c_user    varchar2(30),
+  use_flag  varchar2(1)
+);
+
+create table jstark_gateway_log
+(
+  client        varchar2(30),
+  u_no          varchar2(30),
+  user_token    varchar2(50),
+  gw_no         varchar2(30),
+  frontend_url  varchar2(1000),
+  call_url      varchar2(1000),
+  call_method   varchar2(20),
+  result        varchar2(30),
+  a_date        date
 );
 
 create unique index jstark_schedule_pk on jstark_schedule

@@ -1,23 +1,36 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+	<modelVersion>4.0.0</modelVersion>
 
-  <groupId>jstark</groupId>
-  <artifactId>jstark</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-  <packaging>war</packaging>
+	<groupId>jstark</groupId>
+	<artifactId>jstark</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
 
-  <name>jstarkbizsuite</name>
-  <url>http://jstark.org</url>
+	<name>jstarkbizsuite</name>
+	<url>http://jstark.org</url>
 
-  <properties>
-	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-	<java.version>1.8</java.version>
-	<project.lib.path>${project.basedir}/webapp/WEB-INF/lib</project.lib.path>
-  </properties>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<java.version>1.8</java.version>
+		<project.lib.path>${project.basedir}/webapp/WEB-INF/lib</project.lib.path>
+  	</properties>
   
-  <dependencies>
+  	<dependencyManagement>
+    	<dependencies>
+      		<!-- Camel BOM -->
+      		<dependency>
+        	<groupId>org.apache.camel</groupId>
+        	<artifactId>camel-parent</artifactId>
+        	<version>2.17.7</version>
+        	<scope>import</scope>
+        	<type>pom</type>
+      		</dependency>
+    	</dependencies>
+  	</dependencyManagement>
+  
+  	<dependencies>
   	
   	
   	<dependency>
@@ -109,7 +122,7 @@
 	<dependency>
 		<groupId>org.apache.httpcomponents</groupId>
 		<artifactId>httpclient</artifactId>
-		<version>4.4</version>
+		<version>4.5.6</version>
 	</dependency>
 	
 	<dependency>
@@ -249,6 +262,56 @@
         <version>3.8.1</version>
     </dependency>
     
+
+    <dependency>
+        <groupId>org.apache.camel</groupId>
+        <artifactId>camel-core</artifactId>        
+    </dependency>   
+    <dependency>
+        <groupId>org.apache.camel</groupId>
+        <artifactId>camel-servlet</artifactId>        
+    </dependency>    
+    <dependency>
+        <groupId>org.apache.camel</groupId>
+        <artifactId>camel-http</artifactId>        
+        <exclusions>
+            <exclusion>
+                <groupId>commons-logging</groupId>
+                <artifactId>commons-logging</artifactId>
+            </exclusion>
+            <exclusion>
+                <groupId>javax.servlet</groupId>
+                <artifactId>javax.servlet-api</artifactId>
+            </exclusion>
+        </exclusions>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.camel</groupId>
+        <artifactId>camel-http4</artifactId>
+        <exclusions>
+            <exclusion>
+                <groupId>commons-logging</groupId>
+                <artifactId>commons-logging</artifactId>
+            </exclusion>
+            <exclusion>
+                <groupId>javax.servlet</groupId>
+                <artifactId>javax.servlet-api</artifactId>                
+            </exclusion>
+        </exclusions>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.camel</groupId>
+        <artifactId>camel-jackson</artifactId>        
+    </dependency>
+    
+    
+    <dependency>
+	    <groupId>org.slf4j</groupId>
+	    <artifactId>slf4j-simple</artifactId>
+	    <version>1.7.25</version>
+	</dependency>
+
+
   	<dependency>
 	    <groupId>org.apache.maven.plugins</groupId>
 	    <artifactId>maven-resources-plugin</artifactId>
@@ -263,9 +326,9 @@
 	</dependency>
 
   	
-  </dependencies>
+	</dependencies>
   
-  <build>
+	<build>
     <finalName>ROOT</finalName>    
     <plugins>
       
@@ -294,6 +357,6 @@
         </configuration>
       </plugin>
     </plugins>
-  </build>
+	</build>
     
 </project>

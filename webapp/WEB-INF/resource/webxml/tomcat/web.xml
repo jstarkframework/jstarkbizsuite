@@ -2,11 +2,20 @@
 <web-app>
 
     <servlet>
+        <servlet-name>CamelServlet</servlet-name>
+        <servlet-class>org.apache.camel.component.servlet.CamelHttpTransportServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CamelServlet</servlet-name>
+        <url-pattern>/gateway/*</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
         <servlet-name>JStarkServlet</servlet-name>
         <servlet-class>org.jstark.framework.web.JStarkServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
-
     <servlet-mapping>
         <servlet-name>JStarkServlet</servlet-name>
         <url-pattern>*.do</url-pattern>

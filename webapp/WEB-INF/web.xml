@@ -2,11 +2,20 @@
 <web-app>
 
     <servlet>
+        <servlet-name>CamelServlet</servlet-name>
+        <servlet-class>org.apache.camel.component.servlet.CamelHttpTransportServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CamelServlet</servlet-name>
+        <url-pattern>/gateway/*</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
         <servlet-name>JStarkServlet</servlet-name>
         <servlet-class>org.jstark.framework.web.JStarkServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
-
     <servlet-mapping>
         <servlet-name>JStarkServlet</servlet-name>
         <url-pattern>*.do</url-pattern>
@@ -32,7 +41,7 @@
         <url-pattern>/web/*</url-pattern>
     </servlet-mapping>
     -->
-
+ 
     <jsp-config>
         <taglib>
             <taglib-uri>/WEB-INF/taglib/jskfunctions.tld</taglib-uri>
@@ -46,7 +55,7 @@
     <listener>
         <listener-class>org.jstark.framework.watch.JStarkContextListener</listener-class>
     </listener>
-
+    
 <!-- 
     <session-config>
         <session-timeout>60</session-timeout>

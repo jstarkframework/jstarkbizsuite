@@ -614,6 +614,8 @@ create table jstark_gateway
   gw_title    varchar2(500),
   gw_backend  varchar2(1000),
   gw_token    varchar2(300),
+  gw_timeout  number,
+  use_flag    varchar2(1),
   a_date      date,
   a_user      varchar2(30),
   c_date      date,
@@ -643,6 +645,8 @@ create table jstark_gateway_log
   call_url      varchar2(1000),
   call_method   varchar2(20),
   result        varchar2(30),
+  ip            varchar2(100),
+  agent         varchar2(1000),
   a_date        date
 );
 

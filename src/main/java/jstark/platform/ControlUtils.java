@@ -245,7 +245,7 @@ public class ControlUtils
 
                    long target_time = CoreUtils.toLong(DateUtils.getTime("yyyyMMddHHmmss"));
 
-                   if(valid_time >= target_time)
+                   if(valid_time < target_time)
                    {
                        valid_flag = false;
                    }

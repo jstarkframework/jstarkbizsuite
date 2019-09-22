@@ -4,6 +4,7 @@ import org.jstark.framework.core.CoreUtils;
 import org.jstark.framework.core.DData;
 import org.jstark.framework.core.RequestObject;
 import org.jstark.framework.core.hs.ApplicationMaster;
+import org.jstark.framework.core.hs.CipherUtils;
 import org.jstark.framework.core.hs.Txt;
 import org.jstark.framework.core.hs.UserBean;
 import org.jstark.framework.web.JStarkSecurity;
@@ -230,17 +231,23 @@ public class ControlUtils
         {
             if(!"127.0.0.1".equals(ro.getIp()) && !ro.getIp().equals(ApplicationMaster.getIp()) && !user.ip.equals(ro.getIp())) //세션의 IP와 본인의 IP 비교, 세션 누출 검사, 서버에서 접근일 경우 Skip
             {
-                flag=false;
-                controldata.set("result_login","X");
+                String x_server_header = ro.getRequest().getHeader("X-Server");
+                String x_server  = CipherUtils.getAesDecrypt(ApplicationMaster.getFirstKey()+ApplicationMaster.getFirstKey(), x_server_header);
 
-                UserService uservice = UserServiceFactory.getInstance();
-                DData param0 = new DData();
-                param0.set("log_path", "SESSION IP INVALID");
-                uservice.setUserLogout(ro, param0);
+                if(!x_server.startsWith("INTERNAL:"))
+                {
+                    flag=false;
+                    controldata.set("result_login","X");
 
-                JStarkSecurity.setJstarkSessionDelete(ro);
+                    UserService uservice = UserServiceFactory.getInstance();
+                    DData param0 = new DData();
+                    param0.set("log_path", "SESSION IP INVALID");
+                    uservice.setUserLogout(ro, param0);
 
-                ro.set("jskroot_controlcheck_result", "SESSION");
+                    JStarkSecurity.setJstarkSessionDelete(ro);
+
+                    ro.set("jskroot_controlcheck_result", "SESSION");
+                }
             }
         }
 

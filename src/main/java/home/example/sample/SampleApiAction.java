@@ -160,7 +160,7 @@ public class SampleApiAction extends PlatformChannel
             header.put("Authorization", "Bearer "+token);
         }
 
-        HttpBean http = CoreUtils.toApiGet(ro.getDomain()+"/api/v1/item", header, timeout);
+        HttpBean http = CoreUtils.toApiGet(ro.getDomain()+"/api/v1/item", header, timeout, true);
 
         JLog.test(http.body);
         JLog.test(http.status);
@@ -233,7 +233,7 @@ public class SampleApiAction extends PlatformChannel
 
         //HttpBean http = CoreUtils.toApiGet("http://localhost", header);
         //HttpBean http = CoreUtils.toApiPost("http://localhost", header, param);
-        HttpBean http = CoreUtils.toApiPost(ro.getDomain()+"/api/v1/item", header, null, jsonbody, timeout);
+        HttpBean http = CoreUtils.toApiPost(ro.getDomain()+"/api/v1/item", header, null, jsonbody, timeout, true);
 
         JLog.test(http.body);
         JLog.test(http.status);
@@ -286,7 +286,7 @@ public class SampleApiAction extends PlatformChannel
             header.put("Authorization", "Bearer "+token);
         }
 
-        HttpBean http = CoreUtils.toApiGet(ro.getDomain()+"/api/v1/item/M20140310AAAAAAAACM2SYW", header, timeout);
+        HttpBean http = CoreUtils.toApiGet(ro.getDomain()+"/api/v1/item/M20140310AAAAAAAACM2SYW", header, timeout, true);
 
         JLog.test(http.body);
         JLog.test(http.status);
@@ -353,7 +353,7 @@ public class SampleApiAction extends PlatformChannel
             header.put("Authorization", "Bearer "+token);
         }
 
-        HttpBean http = CoreUtils.toApiPut(ro.getDomain()+"/api/v1/item/M20140310AAAAAAAACM2SYW", header, null, jsonbody, timeout);
+        HttpBean http = CoreUtils.toApiPut(ro.getDomain()+"/api/v1/item/M20140310AAAAAAAACM2SYW", header, null, jsonbody, timeout, true);
 
         JLog.test(http.body);
         JLog.test(http.status);
@@ -406,7 +406,7 @@ public class SampleApiAction extends PlatformChannel
             header.put("Authorization", "Bearer "+token);
         }
 
-        HttpBean http = CoreUtils.toApiDelete(ro.getDomain()+"/api/v1/item/M20140310AAAAAAAACM2SYW", header, timeout);
+        HttpBean http = CoreUtils.toApiDelete(ro.getDomain()+"/api/v1/item/M20140310AAAAAAAACM2SYW", header, timeout, true);
 
         JLog.test(http.body);
         JLog.test(http.status);

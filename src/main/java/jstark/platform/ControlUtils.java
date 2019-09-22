@@ -14,6 +14,7 @@ import org.jstark.platform.control.ControlServiceFactory;
 import org.jstark.platform.core.LangUtils;
 import org.jstark.platform.user.UserService;
 import org.jstark.platform.user.UserServiceFactory;
+import org.jstark.utils.DateUtils;
 
 /** PLATFORM 권한 처리
  */
@@ -234,7 +235,23 @@ public class ControlUtils
                 String x_server_header = ro.getRequest().getHeader("X-Server");
                 String x_server  = CipherUtils.getAesDecrypt(ApplicationMaster.getFirstKey()+ApplicationMaster.getFirstKey(), x_server_header);
 
-                if(!x_server.startsWith("INTERNAL:"))
+                boolean valid_flag = true;
+
+                if(x_server.startsWith("INTERNAL:"))
+                {
+                   String[] valid_str = x_server.split(":");
+
+                   long valid_time = CoreUtils.toLong(valid_str[1]);
+
+                   long target_time = CoreUtils.toLong(DateUtils.getTime("yyyyMMddHHmmss"));
+
+                   if(valid_time >= target_time)
+                   {
+                       valid_flag = false;
+                   }
+                }
+
+                if(!x_server.startsWith("INTERNAL:") || !valid_flag)
                 {
                     flag=false;
                     controldata.set("result_login","X");

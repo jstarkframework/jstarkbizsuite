@@ -765,7 +765,7 @@ create table sample_file
   fid        varchar(30),
   file_name  varchar(100),
   file_save  varchar(200),
-  file_path  varchar(100),
+  file_path  varchar(1000),
   file_ext   varchar(100),
   file_size  int,
   a_date     datetime

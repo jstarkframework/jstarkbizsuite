@@ -8,7 +8,7 @@
 </head>
 <body class="jskui_body_white" >
 
-<form name="jskform" method="post" enctype="multipart/form-data" action="">
+<form name="jskform" method="post" action="">
 <input name="jskid_submitblock" id="jskid_submitblock" style="display:none;" />
 
 

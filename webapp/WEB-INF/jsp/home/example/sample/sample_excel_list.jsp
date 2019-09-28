@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<form name="jskform" method="post" enctype="multipart/form-data" action="">
+<form name="jskform" method="post" action="">
 <input name="jskid_submitblock" id="jskid_submitblock" style="display:none;" />
 <input type="hidden" name="fid" id="fid" value="" />
 
@@ -98,12 +98,16 @@
 
     function fn_action_insert()
     {
+        document.jskform.enctype="multipart/form-data";
+        
         jskfn.getId("btn_upload").style.display="none";
         jskfn_fileupload_status();
 
         document.jskform.action = jskfn_open_url("/example/sample/sample_excel_file_upload_save.do");
 
         jskfn_submit(document.jskform);
+        
+        document.jskform.enctype="";
     };
 
     var v_fid;

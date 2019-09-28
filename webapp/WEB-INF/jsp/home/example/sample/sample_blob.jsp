@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<form name="jskform" method="post" enctype="multipart/form-data" action="">
+<form name="jskform" method="post" action="">
 <input name="jskid_submitblock" id="jskid_submitblock" style="display:none;" />
 
 <div class="jskui_header">
@@ -95,11 +95,15 @@
 
     function fn_save()
     {
+        document.jskform.enctype="multipart/form-data";
+        
         jskfn.getId("btn_upload").style.display="none";
         jskfn_fileupload_status();
 
         jskform.action = jskfn_open_url("/example/sample/sample_blob_upload_save.do");
         jskfn_submit(document.jskform);
+        
+        document.jskform.enctype="";
     };
 
     function jskfn_show_file_upload(msg)

@@ -929,7 +929,7 @@ create table sample_file
   fid varchar2(30),
   file_name varchar2(100),
   file_save varchar2(200),
-  file_path varchar2(100),
+  file_path varchar2(1000),
   file_ext varchar2(100),
   file_size number,
   a_date date

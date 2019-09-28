@@ -769,7 +769,7 @@ create table sample_file
   fid        nvarchar(30),
   file_name  nvarchar(100),
   file_save  nvarchar(200),
-  file_path  nvarchar(100),
+  file_path  nvarchar(1000),
   file_ext   nvarchar(100),
   file_size  int,
   a_date     datetime

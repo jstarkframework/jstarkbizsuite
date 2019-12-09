@@ -600,49 +600,6 @@ create table jstark_matrix_data(
     c15 nvarchar(500)
 );
 
-
-create table jstark_gateway
-(
-  gw_no       nvarchar(30),
-  gw_title    nvarchar(500),
-  gw_backend  nvarchar(1000),
-  gw_token    nvarchar(300),
-  gw_timeout  int,
-  use_flag    nvarchar(1),
-  a_date      datetime,
-  a_user      nvarchar(30),
-  c_date      datetime,
-  c_user      nvarchar(30)
-);
-
-create table jstark_gateway_auth
-(
-  client    nvarchar(30),
-  gw_no     nvarchar(30),
-  g_no      nvarchar(30),
-  u_no      nvarchar(30),
-  a_date    datetime,
-  a_user    nvarchar(30),
-  c_date    datetime,
-  c_user    nvarchar(30),
-  use_flag  nvarchar(1)
-);
-
-create table jstark_gateway_log
-(
-  client        nvarchar(30),
-  u_no          nvarchar(30),
-  user_token    nvarchar(50),
-  gw_no         nvarchar(30),
-  frontend_url  nvarchar(1000),
-  call_url      nvarchar(1000),
-  call_method   nvarchar(20),
-  result        nvarchar(30),
-  ip            nvarchar(100),
-  agent         nvarchar(1000),
-  a_date        datetime
-);
-
 create unique index jstark_schedule_pk on jstark_schedule
 (client, sch_no);
 

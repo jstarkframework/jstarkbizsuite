@@ -1,6 +1,5 @@
 package jstark.framework;
 
-import org.jstark.platform.core.GatewayUtils;
 import org.jstark.platform.core.LangUtils;
 
 /** JSTARK FRAMEWORK 초기 기동
@@ -16,8 +15,5 @@ public class JStarkInit
     public static void init()
     {
         LangUtils.init();
-
-        GatewayUtils.run();
-        GatewayUtils.init();
     }
 }

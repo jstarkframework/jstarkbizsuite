@@ -1,15 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <web-app>
-
-    <servlet>
-        <servlet-name>CamelServlet</servlet-name>
-        <servlet-class>org.apache.camel.component.servlet.CamelHttpTransportServlet</servlet-class>
-        <load-on-startup>1</load-on-startup>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>CamelServlet</servlet-name>
-        <url-pattern>/gateway/*</url-pattern>
-    </servlet-mapping>
     
     <servlet>
         <servlet-name>JStarkServlet</servlet-name>
@@ -22,7 +12,7 @@
         <url-pattern>/health</url-pattern>
         <url-pattern>/api/*</url-pattern>
     </servlet-mapping>
-
+    
     <!--
     <servlet-mapping>
         <servlet-name>JStarkServlet</servlet-name>

@@ -27,7 +27,7 @@
     <table class="jskui_search jskui_nostripe_y">
     <tr>
     <th width="100">File 1</th>
-    <td><input type="file" name="attach_file" style="width:100%" multiple /> HTML5, Multiple</td>
+    <td><input type="file" name="attach_file" id="attach_file_1" style="width:100%" multiple /> HTML5, Multiple</td>
     </tr>
     <tr>
     <th width="100">File 2</th>
@@ -47,6 +47,13 @@
     </tr>
     </table>
 
+    </div>
+    
+    <div class="jskui_group">
+    <div id="dd_file" style="min-height: 150px; white-space: pre; border: 3px dotted #0D6E97; padding:10px"
+     ondragenter="fn_dragenter(); fn_drag_set(event);"
+     ondragover="fn_drag_set(event);"
+     ondrop="fn_drag_set(event); fn_drop(event);">Drag and Drop File Upload Here</div>
     </div>
 
     <div class="jskui_fileupload_progress" id="jskid_fileupload_progress"></div>
@@ -153,6 +160,39 @@
         jskfn_location("/example/sample/sample_file_download_save.do?attach_tag=example_sample_file&attach_file="+file_save+"&attach_name="+file_name);
     };
 
+    function fn_drag_set(event)
+    {
+        event.stopPropagation(); 
+        event.preventDefault();
+    };
+    
+    function fn_dragenter()
+    {
+        document.getElementById('dd_file').textContent = '';
+    };
+    
+    function fn_drop(event)
+    {
+        var dt = event.dataTransfer;
+        var files = dt.files;
+
+        var count = files.length;
+    
+        fn_output("File Count: " + count + "\n\n");
+
+        for (var i = 0; i < files.length; i++)
+        {
+            fn_output((i+1) + " : " + files[i].name + "  " + jskfn_comma(files[i].size) + "\n");
+        }
+          
+        jskfn.getId("attach_file_1").files=files;
+    };
+
+    function fn_output(text)
+    {
+        jskfn.getId("dd_file").textContent += text;
+    };
+    
 </script>
 </body>
 </html>

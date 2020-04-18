@@ -1011,6 +1011,12 @@ public class SampleAction extends PlatformChannel
         return "view:/WEB-INF/jsp/home/example/sample/sample_touch.jsp";
     }
 
+    @Link("/example/sample/sample_drag_drop.do")
+    public String doSampleDragDrop() throws Exception
+    {
+        return "view:/WEB-INF/jsp/home/example/sample/sample_drag_drop.jsp";
+    }
+
     @Link("/example/sample/sample_grid.do")
     public String doSampleGrid() throws Exception
     {

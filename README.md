@@ -4,7 +4,7 @@ http://jstark.org<br />
 <br />
 ------------------------------------------------------------------------------------<br />
 <br />
-jstark.application.properties에 DB 설정 이후 초기 데이터는 jstark.init.InitialDataInsert 를 실행하여 DB에 데이터 등록<br />
+Table Schema 구성 이후 jstark.application.properties에 DB 설정 <br />
 <br />
 <br />
 <br />

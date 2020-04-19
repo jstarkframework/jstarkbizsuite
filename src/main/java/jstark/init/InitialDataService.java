@@ -1,23 +1,30 @@
 package jstark.init;
+
 import java.io.File;
 import java.util.ArrayList;
 
 import org.jstark.framework.core.CoreUtils;
 import org.jstark.framework.core.DData;
 import org.jstark.framework.core.JLog;
+import org.jstark.framework.core.JStarkService;
+import org.jstark.framework.core.RequestObject;
+import org.jstark.framework.core.ServiceFactory;
 import org.jstark.framework.core.SimpleDataBase;
 import org.jstark.framework.core.hs.ApplicationMaster;
 import org.jstark.framework.core.hs.DBMS;
 import org.jstark.platform.core.LangUtils;
 import org.jstark.utils.ExcelUtils;
 
-public class InitialDataInsert
+public class InitialDataService extends JStarkService
 {
+    public static InitialDataService getInstance()
+    {
+        return (InitialDataService) ServiceFactory.getInstance(InitialDataService.class);
+    }
 
-    public static void main(String[] args) throws Exception
+    public void setInitialData(RequestObject ro) throws Exception
     {
 
-        JLog.info("\n\n\nJSTARK DATA INSERT CHECKING...");
 
         SimpleDataBase db = new SimpleDataBase();
         db.query("select count(*) cnt from jstark_user");
@@ -25,22 +32,26 @@ public class InitialDataInsert
 
         if(data.getInt("cnt")==0)
         {
+            String filepath = ApplicationMaster.getJStarkHome()+File.separator+ApplicationMaster.getJStarkName()+File.separator+"WEB-INF"+File.separator+"resource"+File.separator+"setup"+File.separator+"jstark_database"+File.separator+"jstark_data.xlsx";
+
+            JLog.info("\n  JSTARK INITIAL DATA CHECKING...");
+
+            JLog.info("   "+filepath+"\n");
+
             String dbms = CoreUtils.getDBMS();
 
             ExcelUtils excel=ExcelUtils.getInstance();
-            String[][][] sheet_list=excel.getExcel(ApplicationMaster.getJStarkHome()+File.separator+ApplicationMaster.getJStarkName()+File.separator+"WEB-INF"+File.separator+"resource"+File.separator+"setup"+File.separator+"jstark_database"+File.separator+"jstark_data.xlsx");
+            String[][][] sheet_list=excel.getExcel(filepath);
 
             String tablename="";
             ArrayList column = new ArrayList();
             ArrayList value = new ArrayList();
 
-            JLog.info("\n\n\nJSTARK DATA INSERT START =>");
-
             for(int i=0;i<sheet_list.length;i++)
             {
                 tablename=sheet_list[i][0][0];
 
-                JLog.info(tablename);
+                JLog.info("    Importing Table >> "+tablename);
 
                 String col="";
                 String col_bind="";
@@ -204,11 +215,11 @@ public class InitialDataInsert
                 db.query("update jstark_user set a_date=TO_TIMESTAMP('2007/02/20 13:58:33','YYYY/MM/DD HH24:MI:SS'), LAST_PW_CHANGE=TO_TIMESTAMP('2007/02/20 13:58:33','YYYY/MM/DD HH24:MI:SS')");db.execute();
             }
 
+            JLog.info("\n  JSTARK DATA INSERT DONE\n");
+
+
             LangUtils.init();
 
-            JLog.info("JSTARK DATA INSERT END.\n\n\n");
         }
-
-        JLog.info("\n\n\nJSTARK DATA INSERT DONE");
     }
 }

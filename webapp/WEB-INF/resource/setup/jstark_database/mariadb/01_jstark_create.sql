@@ -537,7 +537,9 @@ create table jstark_schedule
    a_user varchar(30),
    c_date datetime,
    c_user varchar(30),
-   sch_type varchar(1)
+   sch_type varchar(1),
+   rp_weeks varchar(100),
+   rp_days varchar(500)
 );
 
 

@@ -21,9 +21,9 @@
     <div class="jskui_group">
 	    <table class="jskui_table jskui_nostripe_x" id="sort_table">
 	    <tr>
-	    <th width="100" onclick="jskfn_table_sort('sort_table', 1, 0, true)" style="cursor:pointer">Col1</th>
-	    <th onclick="jskfn_table_sort('sort_table', 1, 1, false)" style="cursor:pointer">Col2</th>
-	    <th width="100" onclick="jskfn_table_sort('sort_table', 1, 2, false)" style="cursor:pointer">Col2</th>
+	    <th width="100" onclick="jskfn_table_sort('sort_table', 1, -1, 0, true)" style="cursor:pointer">Col1</th>
+	    <th onclick="jskfn_table_sort('sort_table', 1, 0, 1, false)" style="cursor:pointer">Col2</th>
+	    <th width="100" onclick="jskfn_table_sort('sort_table', 1, 0, 2, false)" style="cursor:pointer">Col2</th>
 	    </tr>
 	    <tr>
 	    <td>1</td>
@@ -36,7 +36,7 @@
 	    <td>나</td>
 	    </tr>
 	    <tr>
-	    <td>3</td>
+	    <td> </td>
 	    <td>C</td>
 	    <td>다</td>
 	    </tr>

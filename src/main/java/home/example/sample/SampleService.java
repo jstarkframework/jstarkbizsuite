@@ -1047,7 +1047,7 @@ public class SampleService extends JStarkService
             db.query("     where                                      ");
             db.query("     title like :title                          ");
             db.query(" ) t1                                           ");
-            db.query(" order by jskvar_ac_text desc                   ");
+            db.query(" order by title desc                   ");
             db.query(" limit 10                                       ");
         }
         else if(db.isPOSTGRESQL)

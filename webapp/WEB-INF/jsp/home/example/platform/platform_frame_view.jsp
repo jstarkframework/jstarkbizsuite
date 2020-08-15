@@ -16,6 +16,7 @@
 </div>
 <div class="jskui_main">
     <div class="jskui_button_bar">
+        <button type="button" onclick="fn_confirm(); return false;">confirm</button>
         <button type="button" onclick="fn_save(); return false;">Save</button>
     </div>
 </div>
@@ -39,6 +40,16 @@
     function fn_save()
     {
         parent.jskfn_tab_nowframe().fn_popup_msg("Hello JSTARK");
+    };
+    
+    function fn_confirm()
+    {
+        parent.jskfn_confirm("Do you want to delete?", fn_delete_file_save);
+    };
+    
+    function fn_delete_file_save()
+    {
+        
     };
 
 </script>

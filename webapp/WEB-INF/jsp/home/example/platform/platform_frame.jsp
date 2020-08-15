@@ -53,7 +53,7 @@
     
     function fn_popup_msg(msg)
     {
-        alert(msg);
+        parent.jskfn_alert_red(msg);
     };
 
 </script>

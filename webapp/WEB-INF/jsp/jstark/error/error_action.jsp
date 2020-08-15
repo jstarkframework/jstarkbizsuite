@@ -1,7 +1,8 @@
 <%@ page language = "java" contentType = "text/html; charset=UTF-8" pageEncoding = "UTF-8" %><%
 %><%@ page import = "jstark.framework.*,jstark.platform.*,org.jstark.framework.core.*" %><%
 
-response.setStatus(HttpServletResponse.SC_OK);
+response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+//response.setStatus(HttpServletResponse.SC_OK);
 
 String jcontext = CoreUtils.getContext();
 if(jcontext==null)

@@ -24,11 +24,11 @@
 	    <table class="jskui_search jskui_nostripe_y">
 	    <tr>
 	    <th width="100">Search 1</th>
-	    <td><input type="text" name="search1" id="search1" value="" style="width:100%" /></td>
+	    <td><input type="text" name="search1" id="search1" value="" style="width:100%" onkeydown="if(event.keyCode==13)fn_search();" class="jskui_orange_color" /></td>
 	    </tr>
 	    <tr>
 	    <th width="100">Search 2</th>
-	    <td><input type="text" name="search2" id="search2" value="" style="width:100%" /></td>
+	    <td><input type="text" name="search2" id="search2" value="" style="width:100%" onkeydown="if(event.keyCode==13)fn_search();" class="jskui_orange_color" /></td>
 	    </tr>
 	    </table>
     </div>

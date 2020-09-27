@@ -25,9 +25,9 @@
 	    <th width="100">Col2</th>
 	    </tr>
 	    <tr>
-        <th><input type="text" onkeyup="jskfn_table_search(this, 'search_table', 2, 0)" placeholder="Serach for col1" class="jskui_table_search" /></th>
-        <th><input type="text" onkeyup="jskfn_table_search(this, 'search_table', 2, 1)" placeholder="Serach for col2" class="jskui_table_search" /></th>
-        <th><input type="text" onkeyup="jskfn_table_search(this, 'search_table', 2, 2)" placeholder="Serach for col3" class="jskui_table_search" /></th>
+        <th><input type="text" onkeyup="jskfn_table_search(this, 'search_table', 2, 0)" placeholder="Serach for col1" class="jskui_table_search jskui_orange_color" /></th>
+        <th><input type="text" onkeyup="jskfn_table_search(this, 'search_table', 2, 1)" placeholder="Serach for col2" class="jskui_table_search jskui_orange_color" /></th>
+        <th><input type="text" onkeyup="jskfn_table_search(this, 'search_table', 2, 2)" placeholder="Serach for col3" class="jskui_table_search jskui_orange_color" /></th>
         </tr>
 	    <tr>
 	    <td>1</td>

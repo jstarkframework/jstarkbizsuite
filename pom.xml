@@ -169,10 +169,12 @@
 	    <version>64.2</version>
 	</dependency>
 	
-	<dependency>
+    <dependency>
 	    <groupId>redis.clients</groupId>
 	    <artifactId>jedis</artifactId>
-	    <version>2.9.0</version>
+	    <version>3.2.0</version>
+	    <type>jar</type>
+	    <scope>compile</scope>
 	</dependency>
 	
 	<dependency> 

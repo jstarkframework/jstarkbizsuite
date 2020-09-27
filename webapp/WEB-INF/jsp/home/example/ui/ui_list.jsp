@@ -18,10 +18,10 @@
 </div>
 <div class="jskui_main">
     <div class="jskui_button_bar">
-        <button type="button" onclick="; return false;">Button</button>
+        <button type="button" onclick="jskfn_table_excel('id_table', 'excel', null); return false;">Excel</button>
     </div>
     <div class="jskui_group">
-	    <table class="jskui_table jskui_nostripe_x">
+	    <table class="jskui_table jskui_nostripe_x" id="id_table">
 	    <tr>
 	    <th width="100">Table</th>
 	    <th>Table</th>

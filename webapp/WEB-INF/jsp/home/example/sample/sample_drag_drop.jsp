@@ -68,8 +68,8 @@
     </div>
 </div>
 
-<div class="dd_div" id="div_1" ondrop="fn_drag_set(event); fn_drop(event);" ondragover="fn_drag_set(event)" ondragleave="fn_dragleave(this); fn_drag_set(event);" ondragenter="fn_dragenter(this); fn_drag_set(event);">
-    <div id="dd_1" draggable="true" style="width:100%;height:50px;" ondragstart="fn_dragstart(event)">
+<div class="dd_div" id="div_1" dropable="true" ondrop="fn_drag_set(event); fn_drop(event);" ondragover="fn_drag_set(event)" ondragleave="fn_dragleave(this); fn_drag_set(event);" ondragenter="fn_dragenter(this); fn_drag_set(event);">
+    <div id="dd_1" dragable="true" draggable="true" style="width:100%;height:50px;" ondragstart="fn_dragstart(event)" ondragend="fn_dragend(event)" >
     <div class="table" style="border-bottom: 1px solid #DDD;">
         <div class="table-cell col1">No</div>
         <div class="table-cell col2">Title</div>
@@ -83,8 +83,8 @@
     </div>
 </div>
 
-<div class="dd_div" id="div_2" ondrop="fn_drag_set(event); fn_drop(event);" ondragover="fn_drag_set(event)" ondragleave="fn_dragleave(this); fn_drag_set(event);" ondragenter="fn_dragenter(this); fn_drag_set(event);">
-    <div id="dd_2" draggable="true" style="width:100%;height:50px;" ondragstart="fn_dragstart(event)">
+<div class="dd_div" id="div_2" dropable="true" ondrop="fn_drag_set(event); fn_drop(event);" ondragover="fn_drag_set(event)" ondragleave="fn_dragleave(this); fn_drag_set(event);" ondragenter="fn_dragenter(this); fn_drag_set(event);">
+    <div id="dd_2" dragable="true" draggable="true" style="width:100%;height:50px;" ondragstart="fn_dragstart(event)" ondragend="fn_dragend(event)" >
     <div class="table" style="border-bottom: 1px solid #DDD;">
         <div class="table-cell col1">No</div>
         <div class="table-cell col2"><input type="text" /></div>
@@ -98,8 +98,8 @@
     </div>
 </div>
 
-<div class="dd_div" id="div_3" ondrop="fn_drag_set(event); fn_drop(event);" ondragover="fn_drag_set(event)" ondragleave="fn_dragleave(this); fn_drag_set(event);" ondragenter="fn_dragenter(this); fn_drag_set(event);">
-    <div id="dd_3" draggable="true" style="width:100%;height:50px;" ondragstart="fn_dragstart(event)">
+<div class="dd_div" id="div_3" dropable="true" ondrop="fn_drag_set(event); fn_drop(event);" ondragover="fn_drag_set(event)" ondragleave="fn_dragleave(this); fn_drag_set(event);" ondragenter="fn_dragenter(this); fn_drag_set(event);">
+    <div id="dd_3" dragable="true" draggable="true" style="width:100%;height:50px;" ondragstart="fn_dragstart(event)" ondragend="fn_dragend(event)" >
     <div class="table" style="border-bottom: 1px solid #DDD;">
         <div class="table-cell col1">No</div>
         <div class="table-cell col2"><input type="radio" /></div>
@@ -113,8 +113,8 @@
     </div>
 </div>
 
-<div class="dd_div" id="div_4" ondrop="fn_drag_set(event); fn_drop(event);" ondragover="fn_drag_set(event)" ondragleave="fn_dragleave(this); fn_drag_set(event);" ondragenter="fn_dragenter(this); fn_drag_set(event);">
-    <div id="dd_4" draggable="true" style="width:100%;height:50px;" ondragstart="fn_dragstart(event)">
+<div class="dd_div" id="div_4" dropable="true" ondrop="fn_drag_set(event); fn_drop(event);" ondragover="fn_drag_set(event)" ondragleave="fn_dragleave(this); fn_drag_set(event);" ondragenter="fn_dragenter(this); fn_drag_set(event);">
+    <div id="dd_4" dragable="true" draggable="true" style="width:100%;height:50px;" ondragstart="fn_dragstart(event)" ondragend="fn_dragend(event)" >
     <div class="table" style="border-bottom: 1px solid #DDD;">
         <div class="table-cell col1">No</div>
         <div class="table-cell col2"><input type="checkbox" /></div>
@@ -161,6 +161,8 @@
     var hl_css = "background: #DEEBFF; height: 44px; border: 3px dotted #004ABC;";
     var nm_css = "background: #FFFFFF; height: 50px; border: 0px;";
 
+    var last_obj;
+    
     function fn_drag_set(event)
     {
         event.stopPropagation(); 
@@ -169,67 +171,101 @@
 
     function fn_dragstart(event) 
     {
-        start_node = event.target.parentNode.id;
-        
-        event.dataTransfer.setData("text", event.target.id);
+        if(event.target.getAttribute("dragable")=="true")
+        {        
+            start_node = event.target.parentNode;
+	        
+	        event.dataTransfer.setData("text", event.target.id);
+        }
+    };
+    
+    function fn_dragend(event)
+    {
+        if(last_obj!=null)
+        {
+            fn_dragleave2(last_obj);
+        }
     };
 
     function fn_drop(event)
     {
-        end_node = event.target.id;
-        
-        var data = event.dataTransfer.getData("text");
-        
-        event.target.appendChild(document.getElementById(data));
-        
-        event.target.style = nm_css;
-        
-        fn_swap();
+        if(event.target.getAttribute("dropable")=="true")
+        {
+            end_node = event.target;
+	        
+	        var data = event.dataTransfer.getData("text");
+	        
+	        event.target.appendChild(document.getElementById(data));
+	        
+	        event.target.style = nm_css;
+	        
+	        fn_swap();
+        }        
     };
 
     function fn_dragenter(obj)
     {    
+        if(last_obj!=null && last_obj != obj)
+        {
+            fn_dragleave2(last_obj);
+        }
+        
         if(obj.firstElementChild)
         {
+            document.getElementById("div_swap").firstElementChild=null;
             document.getElementById("div_swap").appendChild(obj.firstElementChild);
         }
         
         obj.style = hl_css;
         
+        last_obj = obj;
+        
     };
 
     function fn_dragleave(obj)
     {
-        obj.appendChild(document.getElementById("div_swap").firstElementChild);
+        obj.style = nm_css;
+    };
+    
+    function fn_dragleave2(obj)
+    {
+        try
+        {
+            obj.appendChild(document.getElementById("div_swap").firstElementChild);
+        }
+        catch(e){}
         
         obj.style = nm_css;
     };
 
     function fn_swap()
     {    
-        var s_node = parseInt(start_node.split("_")[1]);
-        var e_node = parseInt(end_node.split("_")[1]);
-        
-        if(s_node != e_node)
+        if(start_node != end_node)
         {
-            if(s_node > e_node) //up
-            {
-                for(var i=s_node-1 ; i>e_node ; i--)
-                {
-                    document.getElementById("div_"+(i+1)).appendChild(document.getElementById("div_"+(i)).firstElementChild);
-                }
-                
-                document.getElementById("div_"+(e_node+1)).appendChild(document.getElementById("div_swap").firstElementChild);
-            }
-            else //down
-            {
-                for(var i=s_node+1 ; i<e_node ; i++)
-                {
-                    document.getElementById("div_"+(i-1)).appendChild(document.getElementById("div_"+(i)).firstElementChild);
-                }
-                
-                document.getElementById("div_"+(e_node-1)).appendChild(document.getElementById("div_swap").firstElementChild);
-            }    
+	        var s_node = parseInt(start_node.id.split("_")[1]);
+	        var e_node = parseInt(end_node.id.split("_")[1]);
+	        
+	        if(s_node != e_node)
+	        {
+	            if(s_node > e_node) //up
+	            {
+	                for(var i=s_node-1 ; i>e_node ; i--)
+	                {
+	                    document.getElementById("div_"+(i+1)).appendChild(document.getElementById("div_"+(i)).firstElementChild);
+	                }
+	                
+	                document.getElementById("div_"+(e_node+1)).appendChild(document.getElementById("div_swap").firstElementChild);
+	            }
+	            else //down
+	            {
+	                for(var i=s_node+1 ; i<e_node ; i++)
+	                {
+	                    document.getElementById("div_"+(i-1)).appendChild(document.getElementById("div_"+(i)).firstElementChild);
+	                }
+	                
+	                document.getElementById("div_"+(e_node-1)).appendChild(document.getElementById("div_swap").firstElementChild);
+	            }    
+	        }
         }
     };
     

@@ -41,7 +41,7 @@
     <table class="jskui_search jskui_nostripe_y">
 	    <tr>
 		    <th width="100">Title</th>
-		    <td><input type="text" name="search_title" id="search_title" value="<%=ro.getString("search_title")%>" style="width:100%" /></td>
+		    <td><input type="text" name="search_title" id="search_title" value="<%=ro.getString("search_title")%>" style="width:100%" onkeydown="if(event.keyCode==13)fn_search();" class="jskui_orange_color" /></td>
 	    </tr>
     </table>
 

@@ -92,7 +92,7 @@
     window.onload = function()
     {
         try{parent.jskfn_offloading();}catch(e){}
-        try{parent.jskfn_hidden_submenu();}catch(e){}
+        try{parent.jskfn_minimum_submenu();}catch(e){}
         jskfn_frame_resize("jskid_content_frame",0);
         jskfn_scroll_td_resize();
     };

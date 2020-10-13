@@ -73,22 +73,24 @@
         <div id="jskid_main_menu" class="jsknv24">
             <table class="jsknv252">
             <tr>
-            <td onclick="jskfn_submenu();return false;" id="jskid_submenu_height" class="jskui_header_menu_td2">
+            <td onclick="jskfn_submenu();return false;" id="jskid_submenu_height" class="jskui_header_menu_td2" style="width:220px;">
             <img src="${jcontext}/web/jstark/platform/img/menu2.png" border="0" style="width:25px;cursor:pointer;-webkit-filter: opacity(.6) drop-shadow(0 0 0 #ffffff); filter: opacity(.5) drop-shadow(0 0 0 #ffffff);" alt="Sub Menu" />
             </td>
             </tr>
             </table>
-
-            <table class="jsknv252" id="jskid_submenu_table" style="width:220px">
+        
+        <div id="jskid_submenu_list" style="overflow-x:hidden;overflow-y:auto">
+            <table class="jsknv252" id="jskid_submenu_table" style="width:100%">
             <c:forEach var="list" items="${mlist}">
             <tr>
-            <td onclick="jskfn_show_menu(this,${list.depth1});" class="jskui_header_menu_td" style="width:220px;height:30px;">${list.m_name}</td>
+            <td onclick="jskfn_show_menu(this,${list.depth1});" class="jskui_header_menu_td" style="width:100%;height:30px;">${list.m_name}</td>
             </tr>
             </c:forEach>
             <tr>
             <td style="cursor:default"><span style="white-space:nowrap">&nbsp;</span></td>
             </tr>
             </table>
+        </div>
 
         </div>
         </td>

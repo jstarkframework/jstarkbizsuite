@@ -566,7 +566,8 @@ create table jstark_schedule_result
    e_date varchar(19),
    sch_time int,
    sch_result varchar(1),
-   sch_msg varchar(2000)
+   sch_msg varchar(2000),
+   r_date varchar(19)
 );
 
 create table jstark_matrix(

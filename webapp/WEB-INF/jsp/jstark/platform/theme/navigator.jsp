@@ -13,8 +13,8 @@
 <input type="hidden" name="g_no" id="g_no" value="${jskfn:encode(ro, ro.g_no)}" />
 </form>
 <div id="jskid_submenu_back" class="jskui_submenu_back"></div>
-<div id="jskid_submenu" class="jskui_submenu">
-<table class="jsknv1"><tr><td class="jsknv2"><table class="jsknv2" id="jskid_submenu_area"><tr><td></td></tr></table></td></tr></table>
+<div id="jskid_submenu" class="jskui_submenu noselect">
+<table class="jsknv1"><tr><td class="jsknv2"><table class="jsknv2" id="jskid_submenu_area"><tr><td style="padding:0px"></td></tr></table></td></tr></table>
 </div>
 <div id="jskid_topmenu_div" class="jsknv4">
     <div class="jsknv3">
@@ -32,7 +32,7 @@
         </tr>
         </table>
     </div>
-    <div class="jsknv30">
+    <div class="jsknv30 noselect">
         <table class="jsknv6">
         <c:if test="${fn:length(toplist)>1}">
         <c:forEach var="list" items="${toplist}">
@@ -44,39 +44,41 @@
 </div>
 <table id="jskid_main_layout" class="jsknv10">
     <tr>
-    <td class="jsknv11">
+    <td class="jsknv11" style="background:#ffffff">
         <table class="jsknv12">
         <tr>
-        <td class="jsknv13"><img src="${jcontext}/web/jstark/platform/img/menu.png" border="0" onclick="jskfn_top_menu();" style="width:30px;cursor:pointer;-webkit-filter: opacity(.6) drop-shadow(0 0 0 #0D6E97); filter: opacity(.6) drop-shadow(0 0 0 #0D6E97);" alt="Menu" /></td>
-        <td class="jsknv14"><img src="${jcontext}/web/jstark/platform/img/jskimg_navi_home_jstark.jpg" border="0" onclick="jskfn_home();" style="cursor:pointer" alt="Home" /></td>
-        <td class="jsknv15"><img src="${jcontext}/web/jstark/platform/img/logout.png" alt="logout" title="logout" style="cursor:pointer" onclick="jskfn_logoff(); return false;"></td>
+        <td class="jsknv13"><img src="${jcontext}/web/jstark/platform/img/menu.png" border="0" onclick="jskfn_top_menu();" style="width:30px;cursor:pointer;" alt="Menu" /></td>
+        <td class="jsknv14"><img src="${jcontext}/web/jstark/platform/img/JSTARK_B.png" height="20" border="0" onclick="jskfn_home();" style="cursor:pointer" alt="Home" /></td>
+        <td class="jsknv15"><img src="${jcontext}/web/jstark/platform/img/logout.png" alt="logout" title="logout" style="cursor:pointer;" onclick="jskfn_logoff(); return false;"></td>
         </tr>
         </table>
     </td>
     </tr>
+    <tr><td style="height:1px;background:#E0E3E6" class="jsknv27"></td></tr>
     <tr>
     <td class="jsknv20">
         <table class="jsknv21">
         <tr>
-        <td class="jsknv22"><img id="jskid_menu_move_left" src="${jcontext}/web/jstark/platform/img/jskimg_navi_left.gif" border="0" onmousedown="jskfn_move_menu('L');" style="cursor:pointer;display:none" alt="left" /></td>
+        <td class="jsknv22"><img id="jskid_menu_move_left" src="${jcontext}/web/jstark/platform/img/left.png" height="24" border="0" onmousedown="jskfn_move_menu('L');" style="cursor:pointer;display:none" alt="left" /></td>
         <td class="jsknv23">
-        <div id="jskid_main_menu" class="jsknv24">
+        <div id="jskid_main_menu" class="jsknv24 noselect">
             <table class="jsknv25">
             <tr>
             <c:forEach var="list" items="${mlist}">
-            <td onclick="jskfn_show_menu(this,${list.depth1});" class="jskui_header_menu_td"><span style="white-space:nowrap">${list.m_name}</span></td>
+            <td onclick="jskfn_show_menu(this,${list.depth1});" class="jskui_header_menu_td" onmouseover="this.style.borderBottom='5px solid #0BACE7'" onmouseout="this.style.borderBottom='5px solid #ffffff'"><span style="white-space:nowrap">${list.m_name}</span></td>
             </c:forEach>
             <td style="cursor:default"><span style="white-space:nowrap">&nbsp;</span></td>
             </tr>
             </table>
         </div>
         </td>
-        <td class="jsknv26"><img id="jskid_menu_move_right" src="${jcontext}/web/jstark/platform/img/jskimg_navi_right.gif" border="0" onmousedown="jskfn_move_menu('R');" style="cursor:pointer;display:none" alt="right" /></td>
+        <td class="jsknv26"><img id="jskid_menu_move_right" src="${jcontext}/web/jstark/platform/img/right.png" height="24" border="0" onmousedown="jskfn_move_menu('R');" style="cursor:pointer;display:none" alt="right" /></td>
         </tr>
         </table>
     </td>
     </tr>
-    <tr><td style="height:1px;" class="jsknv27" id="jskid_main_tabs"></td></tr>
+    <tr><td style="height:1px;background:#EBEBEB" class="jsknv27"></td></tr>
+    <tr style="display:none"><td style="height:1px;" class="jsknv27" id="jskid_main_tabs"></td></tr>
     <tr><td id="jskid_main_frames" class="jsknv28"></td></tr>
 </table>
 <script type="text/javascript">

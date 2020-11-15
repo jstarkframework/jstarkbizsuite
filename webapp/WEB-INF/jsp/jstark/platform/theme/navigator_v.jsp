@@ -13,7 +13,7 @@
 <input type="hidden" name="g_no" id="g_no" value="${jskfn:encode(ro, ro.g_no)}" />
 </form>
 <div id="jskid_submenu_back" class="jskui_submenu_back"></div>
-<div id="jskid_submenu" class="jskui_submenu">
+<div id="jskid_submenu" class="jskui_submenu noselect">
 <table class="jsknv1"><tr><td class="jsknv2"><table class="jsknv2" id="jskid_submenu_area"><tr><td></td></tr></table></td></tr></table>
 </div>
 <div id="jskid_topmenu_div" class="jsknv4">
@@ -32,7 +32,7 @@
         </tr>
         </table>
     </div>
-    <div class="jsknv30">
+    <div class="jsknv30 noselect">
         <table class="jsknv6">
         <c:if test="${fn:length(toplist)>1}">
         <c:forEach var="list" items="${toplist}">
@@ -53,13 +53,13 @@
         <table class="jsknv12">
         <tr>
         <td class="jsknv13"><img src="${jcontext}/web/jstark/platform/img/menu.png" border="0" onclick="jskfn_top_menu();" style="width:30px;cursor:pointer;" alt="Menu" /></td>
-        <td class="jsknv14"><img src="${jcontext}/web/jstark/platform/img/JSTARK_B.png" height="30" border="0" onclick="jskfn_home();" style="cursor:pointer" alt="Home" style="vertical-align:middle" /></td>
+        <td class="jsknv14"><img src="${jcontext}/web/jstark/platform/img/JSTARK_B.png" height="20" border="0" onclick="jskfn_home();" style="cursor:pointer" alt="Home" style="vertical-align:middle" /></td>
         <td id="jskid_navi_center"></td>
         <td class="jsknv15"><img src="${jcontext}/web/jstark/platform/img/logout.png" alt="logout" title="logout" style="cursor:pointer" onclick="jskfn_logoff(); return false;"></td>
         </tr>
         </table>
                 
-        <table  style="width:100%;border:0px;border-spacing: 0px;background:#EDEBE9">
+        <table  style="width:100%;border:0px;border-spacing: 0px;background:#E0E3E6">
         <tr><td style="height:1px;" class="jsknv27" style="padding:0px"></td></tr>
         </table>
 
@@ -70,7 +70,7 @@
         <table class="jsknv21">        
         <tr>
         <td class="jsknv23">
-        <div id="jskid_main_menu" class="jsknv24">
+        <div id="jskid_main_menu" class="jsknv24 noselect">
             <table class="jsknv252">
             <tr>
             <td onclick="jskfn_submenu();return false;" id="jskid_submenu_height" class="jskui_header_menu_td2" style="width:220px;">
@@ -83,7 +83,7 @@
             <table class="jsknv252" id="jskid_submenu_table" style="width:100%">
             <c:forEach var="list" items="${mlist}">
             <tr>
-            <td onclick="jskfn_show_menu(this,${list.depth1});" class="jskui_header_menu_td" style="width:100%;height:30px;">${list.m_name}</td>
+            <td onclick="jskfn_show_menu(this,${list.depth1});jskfn_tr_click_color_one(this, '#1f4d63');" class="jskui_header_menu_td" style="width:220px;height:30px;" onmouseover="jskfn_tr_mouseover_color(this, '#237298');" onmouseout="jskfn_tr_mouseout(this);" >${list.m_name}</td>
             </tr>
             </c:forEach>
             <tr>
@@ -111,6 +111,14 @@ var jsk_home_url = "${home_url}";
 var jsk_home_name = "${home_name}";
 var jsk_new_tab = ${jsk_new_tab};
 var jsk_top_list_size = ${fn:length(toplist)};
+
+try
+{
+    var mobj = jskfn.getId("jskid_submenu_table").children[0].rows[0].cells[0];
+    jskfn_tr_click_color_one(mobj, '#1f4d63');
+}
+catch(e){}
+
 </script>
 </body>
 </html>

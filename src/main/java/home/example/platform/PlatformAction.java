@@ -116,4 +116,10 @@ public class PlatformAction extends PlatformChannel
     {
         return "view:/WEB-INF/jsp/home/example/platform/platform_frame_view.jsp";
     }
+
+    @Link("/example/platform/platform_direct_url.do")
+    public String doPlatformDirectUrl() throws Exception
+    {
+        return "view:/WEB-INF/jsp/home/example/platform/platform_direct_url.jsp";
+    }
 }

@@ -45,7 +45,7 @@
     </div>
     <div class="jskui_group">
     <div id="jskid_scroll_th_div" class="jskui_scroll_th_div">
-	    <table id="jskid_scroll_th" class="jskui_scroll">
+	    <table id="jskid_scroll_th" class="jskui_scroll noselect">
 	    <tr>
 	    <th width="100">Label</th>
 	    <th width="300">Label</th>
@@ -60,7 +60,7 @@
 	    </tr>
 	    </table>
     </div>
-    <div id="jskid_scroll_td_div" class="jskui_scroll_td_div" onscroll="jskfn_frame_th_left()">
+    <div id="jskid_scroll_td_div" class="jskui_scroll_td_div">
 	    <table id="jskid_scroll_td" class="jskui_scroll">
 	    <%
 	    for(int i=0;i<20;i++)
@@ -91,20 +91,10 @@
 
     window.onload = function()
     {
-        try{parent.jskfn_offloading();}catch(e){}
         try{parent.jskfn_minimum_submenu();}catch(e){}
         jskfn_frame_resize("jskid_content_frame",0);
-        jskfn_scroll_td_resize();
-    };
-
-    window.onerror = function(msg,url,line)
-    {
-        try{jskfn_error(msg,url,line);}catch(e){}
-    };
-
-    window.onresize = function()
-    {
-        jskfn_frame_resize("jskid_content_frame",0);
+        
+        jskfn_scroll_resize();
     };
 
 </script>

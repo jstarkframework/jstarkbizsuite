@@ -58,19 +58,7 @@
 
     window.onload = function()
     {
-        try{parent.jskfn_offloading();}catch(e){}
-
         jskfn_webedit_img_resize();
-    };
-
-    window.onresize = function()
-    {
-        jskfn_webedit_img_resize();
-    };
-
-    window.onerror = function(msg,url,line)
-    {
-        try{jskfn_error(msg,url,line);}catch(e){}
     };
 
     function jskfn_webedit_resize(iheight)

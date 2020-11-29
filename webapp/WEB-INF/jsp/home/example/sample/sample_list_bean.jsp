@@ -59,15 +59,9 @@
 
     window.onload = function()
     {
-        try{parent.jskfn_offloading();}catch(e){}
-        jskfn_resizable_table_init("jskid_resizable_table",false);
+        jskfn_resizable_table("jskid_resizable_table");
     };
 
-    window.onerror = function(msg,url,line)
-    {
-        try{jskfn_error(msg,url,line);}catch(e){}
-    };
-    
     function fn_page(page_no)
     {
         jskfn.getId("j_page").value = page_no;

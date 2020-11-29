@@ -49,17 +49,6 @@
 
     window.onload = function()
     {
-        try{parent.jskfn_offloading();}catch(e){}
-        jskfn_frame_height("jskid_content_frame",0,0,0);
-    };
-
-    window.onerror = function(msg,url,line)
-    {
-        try{jskfn_error(msg,url,line);}catch(e){}
-    };
-
-    window.onresize = function()
-    {
         jskfn_frame_height("jskid_content_frame",0,0,0);
     };
 

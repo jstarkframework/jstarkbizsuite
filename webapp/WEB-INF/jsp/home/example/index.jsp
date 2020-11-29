@@ -17,6 +17,7 @@
     tablist.add(new String[]{"Sample","A"});
     tablist.add(new String[]{"UI","C"});
     tablist.add(new String[]{"Platform","D"});
+    tablist.add(new String[]{"Utils","E"});
     %><%=HtmlUtils.getTabList(ro, tablist, "fn_tab", "j_sample_tab", true, 150)%>
 </div>
 
@@ -289,6 +290,15 @@
         </tr>
         <%
 	    }
+        else if(ro.equals("j_sample_tab","E"))
+        {
+        %>
+        <tr onmouseover="jskfn_tr_mouseover(this);" onmouseout="jskfn_tr_mouseout(this);" onclick="fn_view('/example/utils/win_popup.do'); return false;" style="cursor:pointer" >
+            <td class="jskui_left">Win Popup</td>
+            <td></td>
+        </tr>
+        <%
+        }
         %>
         <tr onmouseover="jskfn_tr_mouseover(this);" onmouseout="jskfn_tr_mouseout(this);" onclick="return false;" style="cursor:pointer" >
             <td class="jskui_left"></td>
@@ -304,14 +314,8 @@
 <script type="text/javascript">
 
     window.onload = function()
-    {
-        try{parent.jskfn_offloading();}catch(e){}
-        jskfn_resizable_table_init("jskid_resizable_table",false);
-    };
-
-    window.onerror = function(msg,url,line)
-    {
-        try{jskfn_error(msg,url,line);}catch(e){}
+    {        
+        jskfn_resizable_table("jskid_resizable_table");
     };
 
     function fn_tab(j_tab)

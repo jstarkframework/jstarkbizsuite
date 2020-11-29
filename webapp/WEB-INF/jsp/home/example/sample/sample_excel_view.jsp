@@ -101,17 +101,6 @@ for(int i=0;i<sheet_list.length;i++)
 
     window.onload = function()
     {
-        try{parent.jskfn_offloading();}catch(e){}
-        jskfn_frame_resize("jskid_content_frame",0);
-    };
-
-    window.onerror = function(msg,url,line)
-    {
-        try{jskfn_error(msg,url,line);}catch(e){}
-    };
-
-    window.onresize = function()
-    {
         jskfn_frame_resize("jskid_content_frame",0);
     };
 

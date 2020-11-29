@@ -68,14 +68,7 @@ input[type=text]::-ms-clear
 
     window.onload = function()
     {
-        try{parent.jskfn_offloading();}catch(e){}
-        
         jskfn_grid_init(grid_align);
-    };
-
-    window.onerror = function(msg,url,line)
-    {
-        try{jskfn_error(msg,url,line);}catch(e){}
     };
 
     var jskvar_grid_name = "grid_table"; 

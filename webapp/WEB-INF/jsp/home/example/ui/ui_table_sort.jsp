@@ -18,12 +18,17 @@
 </div>
 <div class="jskui_main">
 
-    <div class="jskui_group">
-	    <table class="jskui_table jskui_nostripe_x" id="sort_table">
+    <div class="jskui_group_top_zero">
+        <div style="width:100%" class="jskui_right">
+            <img src="/web/jstark/platform/img/excel.png" onclick="jskfn_table_excel('sort_table', 'tablesort', null)" width="18" style="cursor:pointer" title="Excel Download">
+            <img src="/web/jstark/platform/img/filter.png" onclick="jskfn_table_filter_init(this, 'sort_table', null)" width="18" style="cursor:pointer" title="Table Filter" id="jskid_table_filter">
+        </div>
+        
+        <table class="jskui_table jskui_nostripe_x" id="sort_table">
 	    <tr>
-	    <th width="100" onclick="jskfn_table_sort('sort_table', 1, -1, 0, true)" style="cursor:pointer">Col1</th>
-	    <th onclick="jskfn_table_sort('sort_table', 1, 0, 1, false)" style="cursor:pointer">Col2</th>
-	    <th width="100" onclick="jskfn_table_sort('sort_table', 1, 0, 2, false)" style="cursor:pointer">Col2</th>
+	    <th class="noselect" width="100" onclick="jskfn_table_sort(this, true)" style="cursor:pointer">Col1</th>
+	    <th table_filter="NOHIDDEN" class="noselect" onclick="jskfn_table_sort(this, false)" style="cursor:pointer">Col2</th>
+	    <th class="noselect" onclick="jskfn_table_sort(this, false)" style="cursor:pointer">Col3</th>
 	    </tr>
 	    <tr>
 	    <td>1</td>
@@ -62,12 +67,12 @@
 
     window.onload = function()
     {
-        try{parent.jskfn_offloading();}catch(e){}
-    };
-
-    window.onerror = function(msg,url,line)
-    {
-        try{jskfn_error(msg,url,line);}catch(e){}
+        jskfn_table_sort_set("sort_table", -1);
+                
+        jskfn_table_sort_storage("sort_table");
+        //jskfn_table_sort_clear("sort_table");
+        
+        jskfn_table_filter_storage("sort_table", null);
     };
 
 </script>

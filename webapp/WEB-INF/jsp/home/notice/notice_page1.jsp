@@ -33,11 +33,6 @@
 </form>
 <script type="text/javascript">
 
-    window.onerror = function(msg,url,line)
-    {
-        try{jskfn_error(msg,url,line);}catch(e){}
-    };
-
     function fn_close()
     {
         document.jskform.action = jskfn_open_url("/notice/notice_close.do");

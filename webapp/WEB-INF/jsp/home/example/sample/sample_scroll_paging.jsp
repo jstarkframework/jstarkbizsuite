@@ -45,8 +45,6 @@
     
     window.onload = function()
     {
-        try{parent.jskfn_offloading();}catch(e){}
-                
         fn_init_data();
     };
 
@@ -57,11 +55,6 @@
             fn_scroll_page();
         }
     }
-    
-    window.onerror = function(msg,url,line)
-    {
-        try{jskfn_error(msg,url,line);}catch(e){}
-    };
 
     function fn_init_data()
     {

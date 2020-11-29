@@ -72,15 +72,8 @@
 
     window.onload = function()
     {
-        try{parent.jskfn_offloading();}catch(e){}
-
         //calendar_fix="-";
         jskvar_time_type=3;
-    };
-
-    window.onerror = function(msg,url,line)
-    {
-        try{jskfn_error(msg,url,line);}catch(e){}
     };
 
     function jskfn_calendar()

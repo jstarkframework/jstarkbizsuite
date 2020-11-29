@@ -88,14 +88,8 @@ list.add(data2);
 
     window.onload = function()
     {
-        try{parent.jskfn_offloading();}catch(e){}
-        jskfn_resizable_table_init("list_table",false);
+        jskfn_resizable_table("list_table");
         fn_get_table_row_num();
-    };
-
-    window.onerror = function(msg,url,line)
-    {
-        try{jskfn_error(msg,url,line);}catch(e){}
     };
 
     function fn_add()

@@ -18,7 +18,8 @@
     <div class="jskui_button_bar">
         <button type="button" onclick="; return false;">Button</button>
     </div>
-    <div class="jskui_group">
+    <div class="jskui_group_top_zero">
+        <h2 style="color:#666666">Title</h2>
 	    <table class="jskui_table jskui_nostripe_y">
 	    <tr>
 	    <th width="120" class="jskui_left">Column 1</th>
@@ -49,12 +50,6 @@
 
     window.onload = function()
     {
-        try{parent.jskfn_offloading();}catch(e){}
-    };
-
-    window.onerror = function(msg,url,line)
-    {
-        try{jskfn_error(msg,url,line);}catch(e){}
     };
 
 </script>

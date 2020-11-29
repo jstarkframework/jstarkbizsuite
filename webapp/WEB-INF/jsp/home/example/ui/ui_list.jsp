@@ -20,7 +20,13 @@
     <div class="jskui_button_bar">
         <button type="button" onclick="jskfn_table_excel('id_table', 'excel', null); return false;">Excel</button>
     </div>
-    <div class="jskui_group">
+    
+    <div class="jskui_group_top_zero">
+	    <div style="width:100%" class="jskui_right" style="float:left">
+	    <img src="/web/jstark/platform/img/excel.png" onclick="jskfn_table_excel('id_table', 'excelfile', null)" width="18" style="cursor:pointer" title="Excel Download">
+	    <img src="/web/jstark/platform/img/filter.png" onclick="jskfn_table_filter_init(this, 'id_table', null)" width="18" style="cursor:pointer" title="Table Filter" id="jskid_table_filter">
+	    </div>
+	    
 	    <table class="jskui_table jskui_nostripe_x" id="id_table">
 	    <tr>
 	    <th width="100">Table</th>
@@ -65,12 +71,6 @@
 
     window.onload = function()
     {
-        try{parent.jskfn_offloading();}catch(e){}
-    };
-
-    window.onerror = function(msg,url,line)
-    {
-        try{jskfn_error(msg,url,line);}catch(e){}
     };
 
     function fn_page(page_no)

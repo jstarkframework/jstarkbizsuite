@@ -23,16 +23,6 @@
         fn_make_chart();
     };
 
-    window.onerror = function(msg,url,line)
-    {
-        try{jskfn_error(msg,url,line);}catch(e){}
-    };
-
-    window.onresize = function()
-    {
-        jskfn_chart_grid();
-    };
-
     function fn_make_chart()
     {
         jskfn_chart("Count",jskfn_chart_ceil(11230),10,30,260,50,1,"");

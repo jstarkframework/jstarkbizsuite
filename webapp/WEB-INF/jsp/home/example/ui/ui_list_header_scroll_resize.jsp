@@ -24,10 +24,13 @@
 </div>
 
 <div class="jskui_main">
-    <div class="jskui_button_bar">
-        <button type="button" onclick="; return false;">Button</button>
+
+    <div class="jskui_group_zero" id="jskid_more_div" onclick="jskfn_more('jskid_more'); return false;" style="cursor:pointer" title="More...">
+    <table style="width:100%"><tr><td height="12"><div class="jskui_hr"></div></td><td style="width:20px" align="center"><img src="/web/jstark/platform/img/plus_circle.png" width="18" id="jskid_more_img"></td></tr></table>
     </div>
-    <div class="jskui_group">
+    <div class="jskui_group_top_zero" id="jskid_more" style="display:">
+        <table onclick="jskfn_more('jskid_more'); return false;" style="width:100%;cursor:pointer"><tr><td height="12"><div class="jskui_hr"></div></td><td style="width:20px" align="center"><img src="/web/jstark/platform/img/minus_circle.png" width="18"></td></tr></table>
+        
 	    <table class="jskui_search jskui_nostripe_y">
 	    <tr>
 	    <th width="100">Search 1</th>
@@ -39,34 +42,39 @@
 	    </tr>
 	    </table>
     </div>
-    <div class="jskui_group">
+    <div class="jskui_group_top_zero">
+	    <div style="width:100%" class="jskui_right">
+	    <img src="/web/jstark/platform/img/excel.png" onclick="jskfn_table_excel('jskid_scroll_td', 'excelfile', 'jskid_scroll_th')" width="18" style="cursor:pointer" title="Excel Download">
+	    <img src="/web/jstark/platform/img/filter.png" onclick="jskfn_table_filter_init(this, 'jskid_scroll_th', 'jskid_scroll_td')" width="18" style="cursor:pointer" title="Table Filter" id="jskid_table_filter">
+	    </div>
+	    
     <div id="jskid_scroll_th_div" class="jskui_scroll_th_div">
     <div class="jskui_resizable_table">
-	    <table id="jskid_scroll_th" class="jskui_scroll">
+	    <table id="jskid_scroll_th" class="jskui_scroll noselect">
 	    <tr>
-	    <th width="100">Label</th>
-	    <th width="300">Label</th>
-	    <th width="300">Label</th>
-	    <th width="300">Label</th>
-	    <th width="300">Label</th>
-	    <th width="300">Label</th>
-	    <th width="300">Label</th>
-	    <th width="300">Label</th>
-	    <th width="300">Label</th>
-	    <th width="100">Label</th>
+	    <th width="100" onclick="jskfn_table_sort(this, true);" style="cursor:pointer">Sort1</th>
+	    <th width="300" onclick="jskfn_table_sort(this, true);" style="cursor:pointer">Sort2</th>
+	    <th width="300" table_filter="NOHIDDEN">Label</th>
+	    <th width="300" table_filter="NOHIDDEN">Label</th>
+	    <th width="300" table_filter="NOHIDDEN">Label</th>
+	    <th width="300" table_filter="NOHIDDEN">Label</th>
+	    <th width="300" table_filter="NOHIDDEN">Label</th>
+	    <th width="300" table_filter="NOHIDDEN">Label</th>
+	    <th width="300" table_filter="NOHIDDEN">Label</th>
+	    <th width="100" table_filter="NOHIDDEN">Label</th>
 	    </tr>
 	    </table>
 	    </div>
 	    </div>
-	    <div id="jskid_scroll_td_div" class="jskui_scroll_td_div" onscroll="jskfn_frame_th_left()">
+	    <div id="jskid_scroll_td_div" class="jskui_scroll_td_div">
 	    <table id="jskid_scroll_td" class="jskui_scroll">
 	    <%
 	    for(int i=0;i<20;i++)
 	    {
 	    %>
 	    <tr onclick="jskfn_tr_click(this);" onmouseover="jskfn_tr_mouseover(this);" onmouseout="jskfn_tr_mouseout(this);" style="cursor:pointer">
-	    <td class="jskui_left">AAA</td>
-	    <td class="jskui_left">BBB</td>
+	    <td class="jskui_left"><%=i%></td>
+	    <td class="jskui_left"><%=(20-i)%></td>
 	    <td class="jskui_left">CCC</td>
 	    <td class="jskui_left">DDD</td>
 	    <td class="jskui_left">EEE</td>
@@ -89,20 +97,16 @@
 
     window.onload = function()
     {
-        try{parent.jskfn_offloading();}catch(e){}
-        jskfn_resizable_table_init("jskid_scroll_th",true);
-        jskfn_frame_resize("jskid_content_frame",0);
-        jskfn_scroll_td_resize();
-    };
-
-    window.onerror = function(msg,url,line)
-    {
-        try{jskfn_error(msg,url,line);}catch(e){}
-    };
-
-    window.onresize = function()
-    {
-        jskfn_frame_resize("jskid_content_frame",0);
+        jskfn_more_set("jskid_more");
+        
+        jskfn_resizable_table("jskid_scroll_th");
+        jskfn_frame_resize("jskid_content_frame", 0);
+        
+        jskfn_table_sort_set("jskid_scroll_td", 0);        
+        jskfn_table_sort_storage("jskid_scroll_td");        
+        jskfn_table_filter_storage("jskid_scroll_th", "jskid_scroll_td");
+        
+        jskfn_scroll_resize();
     };
 
 </script>

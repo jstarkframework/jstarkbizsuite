@@ -85,21 +85,9 @@
 
     window.onload = function()
     {
-        try{parent.jskfn_offloading();}catch(e){}
+        jskfn_resizable_table("jskid_resizable_table");
 
-        jskfn_resizable_table_init("jskid_resizable_table",true);
-
-        jskfn_frame_resize("",0);
-    };
-
-    window.onerror = function(msg,url,line)
-    {
-        try{jskfn_error(msg,url,line);}catch(e){}
-    };
-
-    window.onresize = function()
-    {
-        jskfn_frame_resize("",0);
+        jskfn_frame_resize("jskid_scroll_td_div",0);
     };
 
 </script>

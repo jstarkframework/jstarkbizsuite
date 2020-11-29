@@ -50,12 +50,6 @@
 
     window.onload = function()
     {
-        try{parent.jskfn_offloading();}catch(e){}
-    };
-
-    window.onerror = function(msg,url,line)
-    {
-        try{jskfn_error(msg,url,line);}catch(e){}
     };
 
     function jskfn_ac_select(obj_nm,obj_text,obj_value)

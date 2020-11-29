@@ -29,7 +29,7 @@
 while(list.next())
 {
     %>
-    <option value="<%=list.getString("title")%>" <%if(list.isFirst()){%> selected="selected" <%}%>><%=list.getString("title")%></option>
+    <option value="<%=list.getString("title")%>" <%if(ro.isArrayIn("title", list.getString("title"))){%> selected="selected" <%}%>><%=list.getString("title")%></option>
     <%
 }
 %>
@@ -48,7 +48,7 @@ list.init();
 while(list.next())
 {
     %>
-    <option value="<%=list.getString("money")%>" <%if(list.isFirst()){%> selected="selected" <%}%>><%=list.getString("money")%></option>
+    <option value="<%=list.getString("money")%>" <%if(ro.isArrayIn("money", list.getString("money"))){%> selected="selected" <%}%>><%=list.getString("money")%></option>
     <%
 }
 %>
@@ -77,16 +77,9 @@ while(list.next())
 
     window.onload = function()
     {
-        try{parent.jskfn_offloading();}catch(e){}
-
         jskvar_select_blank="ALL";
         jskfn_select_set("title");
         jskfn_select_set("money");
-    };
-
-    window.onerror = function(msg,url,line)
-    {
-        try{jskfn_error(msg,url,line);}catch(e){}
     };
 
     function jskfn_select()

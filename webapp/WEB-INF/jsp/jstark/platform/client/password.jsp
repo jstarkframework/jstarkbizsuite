@@ -52,14 +52,6 @@
     {
         jskfn.getId("u_pw").focus();
     };
-    window.onerror = function(msg,url,line)
-    {
-        try{jskfn_error(msg,url,line);}catch(e){}
-    };
-    window.onresize = function()
-    {
-
-    };
     function fn_change()
     {
         document.loginform.action = jskfn_open_url("/platform/user/user_password_save.do");

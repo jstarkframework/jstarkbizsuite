@@ -32,11 +32,6 @@
 </div>
 <script type="text/javascript">
 
-    window.onerror = function(msg,url,line)
-    {
-        try{jskfn_error(msg,url,line);}catch(e){}
-    };
-
     function fn_save()
     {
         parent.jskfn_tab_nowframe().fn_popup_msg("Hello JSTARK");

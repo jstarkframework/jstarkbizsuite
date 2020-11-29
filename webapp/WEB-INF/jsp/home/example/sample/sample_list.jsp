@@ -107,13 +107,7 @@
 
     window.onload = function()
     {
-        try{parent.jskfn_offloading();}catch(e){}
-        jskfn_resizable_table_init("jskid_resizable_table",false);
-    };
-
-    window.onerror = function(msg,url,line)
-    {
-        try{jskfn_error(msg,url,line);}catch(e){}
+        jskfn_resizable_table("jskid_resizable_table");
     };
 
     function fn_page(page_no)

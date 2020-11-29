@@ -30,9 +30,14 @@
 	    </tr>
 	    </table>
     </div>
-    <div class="jskui_group">
-    <table width="100%"><tr><td height="12"><div class="jskui_hr"></div></td><td style="width:80px" align="center"><b><a onclick="fn_more(); return false;">MORE</a></b></td></tr></table>
-	    <table class="jskui_search jskui_nostripe_y" id="jskid_more" style="display:none">
+
+    <div class="jskui_group_zero" id="jskid_more_div" onclick="jskfn_more('jskid_more'); return false;" style="cursor:pointer" title="More...">
+    <table style="width:100%"><tr><td height="12"><div class="jskui_hr"></div></td><td style="width:20px" align="center"><img src="/web/jstark/platform/img/plus_circle.png" width="18" id="jskid_more_img"></td></tr></table>
+    </div>
+    <div class="jskui_group_top_zero" id="jskid_more" style="display:none">
+        <table onclick="jskfn_more('jskid_more'); return false;" style="width:100%;cursor:pointer"><tr><td height="12"><div class="jskui_hr"></div></td><td style="width:20px" align="center"><img src="/web/jstark/platform/img/minus_circle.png" width="18"></td></tr></table>
+        
+	    <table class="jskui_search jskui_nostripe_y">
 	    <tr>
 	    <th width="100">Search 3</th>
 	    <td></td>
@@ -43,6 +48,7 @@
 	    </tr>
 	    </table>
     </div>
+    
     <div class="jskui_group">
 	    <table class="jskui_table jskui_nostripe_x">
 	    <tr>
@@ -98,27 +104,7 @@
 
     window.onload = function()
     {
-        try{parent.jskfn_offloading();}catch(e){}
-    };
-
-    window.onerror = function(msg,url,line)
-    {
-        try{jskfn_error(msg,url,line);}catch(e){}
-    };
-
-    var isMore=false;
-    function fn_more()
-    {
-        if(isMore)
-        {
-            jskfn.getId("jskid_more").style.display="none";
-            isMore=false;
-        }
-        else
-        {
-            jskfn.getId("jskid_more").style.display="";
-            isMore=true;
-        }
+        jskfn_more_set("jskid_more");
     };
 
 </script>

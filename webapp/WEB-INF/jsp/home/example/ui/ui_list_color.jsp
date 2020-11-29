@@ -60,14 +60,7 @@
 
     window.onload = function()
     {
-        try{parent.jskfn_offloading();}catch(e){}
-
         jskfn_table_color("list_table");
-    };
-
-    window.onerror = function(msg,url,line)
-    {
-        try{jskfn_error(msg,url,line);}catch(e){}
     };
 
 </script>

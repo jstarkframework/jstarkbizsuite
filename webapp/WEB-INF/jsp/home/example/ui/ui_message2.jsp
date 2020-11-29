@@ -51,14 +51,8 @@
 
     window.onload = function()
     {
-        try{parent.jskfn_offloading();}catch(e){}
     };
 
-    window.onerror = function(msg,url,line)
-    {
-        try{jskfn_error(msg,url,line);}catch(e){}
-    };
-    
 </script>
 <jsp:include page="/WEB-INF/jsp/jstark/platform/include/footer.jsp" flush="false" />
 </body>
